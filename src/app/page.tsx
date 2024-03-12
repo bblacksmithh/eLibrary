@@ -1,7 +1,9 @@
+"use client"
 import Image from "next/image";
 import styles from "./page.module.css";
 import { Card, Divider, Button } from "antd";
 import logo from '../../public/logo.png'
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -14,9 +16,11 @@ export default function Home() {
           <h2 className={styles.paragraph}>The #1 portal to manage your library and perform administrative tasks.<br/> Make use of our modern app using the latest technology <br/>With just a couple clicks and keystrokes you can manage your library with ease and avoid unnecessary</h2>
           <div className={styles.loginorregistercontainer}>
             <Card className={styles.buttoncard}>
-              <Button className={styles.button}>
-                Login
-              </Button>
+              <Link href='login'>
+                <Button className={styles.button}>
+                  Login
+                </Button>
+              </Link>
               <Divider className={styles.divider}/>
               <Button className={styles.button}>
                 Create Account
