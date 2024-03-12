@@ -17,21 +17,22 @@ export default function Home() {
     type FieldType = {
         username: string;
         password: string;
-        remember: boolean;
+        email: string;
     };
 
     // State to store form values
     const [formValues, setFormValues] = useState<FieldType>({
         username: '',
         password: '',
-        remember: false,
+        email: '',
     });
 
 
     // Form validation rules
     const rules = {
-        username: [{ required: true, message: 'Please input your username!' }],
-        password: [{ required: true, message: 'Please input your password!' }],
+        username: [{ required: true, message: 'Input your username!' }],
+        password: [{ required: true, message: 'Input your password!' }],
+        email: [{required: true, message: 'Input your email'}]
     };
 
     // Event handler for form submission
@@ -58,7 +59,7 @@ export default function Home() {
                         initialValues={formValues}
                         onFinish={onFinish}
                     >
-                        <h1>Enter Your Details...</h1>
+                        <h1>Complete Form...</h1>
                         {/* Username */}
                         <Form.Item
                             className={styles.formitem}
@@ -69,6 +70,19 @@ export default function Home() {
                             <Input
                                 value={formValues.username}
                                 onChange={(e) => setFormValues({ ...formValues, username: e.target.value })}
+                            />
+                        </Form.Item>
+
+                        {/* {Email address} */}
+                        <Form.Item
+                            className={styles.formitem}
+                            label="Email"
+                            name="email"
+                            rules={rules.email}
+                        >
+                            <Input
+                                value={formValues.email}
+                                onChange={(e) => setFormValues({ ...formValues, email: e.target.value })}
                             />
                         </Form.Item>
 
@@ -85,28 +99,12 @@ export default function Home() {
                                 onChange={(e) => setFormValues({ ...formValues, password: e.target.value })}
                             />
                         </Form.Item>
-
-                        {/* Remember me */}
-                        <Form.Item
-                            className={styles.formitem}
-                            name="remember"
-                            valuePropName="checked"
-                        // wrapperCol={{ offset: 4, span: 16 }}
-                        >
-                            <Checkbox
-                                checked={formValues.remember}
-                                onChange={(e) => setFormValues({ ...formValues, remember: e.target.checked })}
-                            >
-                                Remember me
-                            </Checkbox>
-                        </Form.Item>
-
+                        
                         {/* Submit button */}
                         <Form.Item
-                        // wrapperCol={{ offset: 4, span: 16 }}
                         >
                             <Button type="primary" htmlType="submit">
-                                Log In
+                                Create Account
                             </Button>
                         </Form.Item>
                     </Form>
