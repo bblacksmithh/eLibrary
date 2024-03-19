@@ -4,14 +4,16 @@ using LibraryManagement.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LibraryManagement.Migrations
 {
     [DbContext(typeof(LibraryManagementDbContext))]
-    partial class LibraryManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240313090535_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1675,12 +1677,10 @@ namespace LibraryManagement.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("LastModificationTime")
                         .HasColumnType("datetime2");
@@ -1689,12 +1689,10 @@ namespace LibraryManagement.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("LastName")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NationalId")
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("RegisterDate")
                         .HasColumnType("datetime2");
@@ -1715,9 +1713,6 @@ namespace LibraryManagement.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("BookId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("BorrowDate")
@@ -1748,8 +1743,6 @@ namespace LibraryManagement.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BookId");
 
                     b.HasIndex("LibrarianId");
 
@@ -2100,10 +2093,6 @@ namespace LibraryManagement.Migrations
 
             modelBuilder.Entity("LibraryManagement.Domains.Transaction", b =>
                 {
-                    b.HasOne("LibraryManagement.Domains.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId");
-
                     b.HasOne("LibraryManagement.Domains.Librarian", "Librarian")
                         .WithMany()
                         .HasForeignKey("LibrarianId");
@@ -2111,8 +2100,6 @@ namespace LibraryManagement.Migrations
                     b.HasOne("LibraryManagement.Domains.Member", "Member")
                         .WithMany()
                         .HasForeignKey("MemberId");
-
-                    b.Navigation("Book");
 
                     b.Navigation("Librarian");
 

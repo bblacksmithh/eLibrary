@@ -18,5 +18,9 @@
     <PackageReference Include="Abp.AutoMapper" Version="6.5.0" />
     <PackageReference Include="Abp.ZeroCore.EntityFrameworkCore" Version="6.5.0" />
     <PackageReference Include="Castle.Windsor.MsDependencyInjection" Version="3.4.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>

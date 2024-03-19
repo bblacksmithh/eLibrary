@@ -4,14 +4,16 @@ using LibraryManagement.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LibraryManagement.Migrations
 {
     [DbContext(typeof(LibraryManagementDbContext))]
-    partial class LibraryManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240315122710_202403151426")]
+    partial class _202403151426
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
