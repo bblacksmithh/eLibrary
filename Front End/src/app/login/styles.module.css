@@ -1,0 +1,81 @@
+.main {
+    align-items: center;
+    padding: 2rem;
+    min-height: 100vh;
+    min-width: 100vw;
+}
+
+.layout {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.layoutheader {
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.layoutheader h1 {
+    color: white;
+    font-size: 30px;
+    font-style: oblique;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+}
+
+.form {
+    background-color: rgba(0, 0, 0, 0);
+    width: 700px;
+    height: 50vh;
+    margin: 40px auto;
+    border: 1px #5CF64A solid;
+    padding: 20px;
+    border-radius: 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 10px 10px 10px 0px rgba(255,255,255,0.2) inset;
+}
+
+.form h1 {
+    color: #5CF64A;
+    text-align: center;
+    padding: 0 0 20px 0;
+}
+
+.form Input {
+    width: 350px;
+}
+
+.form .passwordinput {
+    width: 350px;
+}
+  
+
+.form Button {
+    background-color: rgb(169, 224, 155);
+    border: black 2px solid;
+    color: black;
+    font-weight: bold;
+    width: 100px;
+    margin: auto;
+}
+
+.form Button:hover {
+    background-color: #5CF64A !important;
+    color: black !important;
+    border: black 2px solid !important;
+}
+
+.formitem label{
+    color: #5CF64A !important;
+}
