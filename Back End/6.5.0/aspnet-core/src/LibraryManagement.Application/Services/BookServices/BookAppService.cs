@@ -53,5 +53,15 @@ namespace LibraryManagement.Services.BookServices
         
             return ObjectMapper.Map<List<BookDto>>(books);
         }
+
+        [HttpDelete]
+        public async Task<BookDto> DeleteBookAsync(Guid id)
+        {   
+            var book = Repository.GetAll().FirstOrDefault(x => x.Id == id);
+            var response = ObjectMapper.Map<BookDto>(book);
+            await _genreOnBookRepository.DeleteAsync(x => x.Book.Id == id);
+            await Repository.DeleteAsync(x => x.Id == id);
+            return response;
+        }
     }
 }

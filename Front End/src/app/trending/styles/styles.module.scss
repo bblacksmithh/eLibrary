@@ -1,0 +1,59 @@
+.mainDiv {
+    align-items: center;
+    min-height: 100vh;
+    min-width: 100vw;
+}
+
+.layout {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.header {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.headingContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: stretch;
+    border-bottom: 1px solid green;
+}
+
+.logoContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: calc(50vw - 20px);
+    justify-content: flex-start;
+    margin: 20px;
+}
+
+.logo {
+    height: 40px;
+    width: 40px;
+    
+}
+
+.menuContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: calc(50vw - 20px);
+    justify-content: flex-end;
+    margin: 20px;
+}
+
+
+.heading {
+    color: white;
+}
+
+.content {
+    min-height: calc(100vh - 110px);
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.footer {
+    background-color: rgba(0, 0, 0, 0);
+}

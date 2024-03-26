@@ -8,7 +8,6 @@ import Image from 'next/image';
 import logo from '../../../public/logo.png';
 import ExploreIcon from '@mui/icons-material/Explore';
 import { ExploreNavbar } from '@/Components/ExploreNavbar/ExploreNavbar';
-import BookTile from '@/Components/BookTile/BookTile';
 
 const Explore: React.FC = () => {
   const [current, setCurrent] = useState('explore');
@@ -46,13 +45,7 @@ const Explore: React.FC = () => {
         </div>
       </Header>
       <Content className={styles.content}>
-        <BookTile/>
-        <BookTile/>
-        <BookTile/>
-        <BookTile/>
-        <BookTile/>
-        <BookTile/>
-        <BookTile/>
+
       </Content>
       <Footer className={styles.footer}>
 
