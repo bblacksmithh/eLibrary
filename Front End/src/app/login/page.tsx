@@ -8,6 +8,12 @@ import Link from "next/link";
 import { Content, Header } from "antd/es/layout/layout";
 import { useState } from "react";
 import router from "next/router";
+import TransactionModal from "@/Components/TransactionModal/TransactionModal";
+import BookModal from "@/Components/BookModal/BookModal";
+import GenreModal from "@/Components/GenreModal/GenreModal";
+import LibrarianModal from "@/Components/LibrarianModal/LibrarianModal";
+import MemberModal from "@/Components/MemberModal/MemberModal";
+import AddCreditsModal from "@/Components/AddCredits/AddCreditsModal";
 
 
 export default function Home() {
@@ -17,14 +23,12 @@ export default function Home() {
     type FieldType = {
         username: string;
         password: string;
-        remember: boolean;
     };
 
     // State to store form values
     const [formValues, setFormValues] = useState<FieldType>({
         username: '',
         password: '',
-        remember: false,
     });
 
 
@@ -86,21 +90,6 @@ export default function Home() {
                             />
                         </Form.Item>
 
-                        {/* Remember me */}
-                        <Form.Item
-                            className={styles.formitem}
-                            name="remember"
-                            valuePropName="checked"
-                        // wrapperCol={{ offset: 4, span: 16 }}
-                        >
-                            <Checkbox
-                                checked={formValues.remember}
-                                onChange={(e) => setFormValues({ ...formValues, remember: e.target.checked })}
-                            >
-                                Remember me
-                            </Checkbox>
-                        </Form.Item>
-
                         {/* Submit button */}
                         <Form.Item
                         // wrapperCol={{ offset: 4, span: 16 }}
@@ -110,6 +99,12 @@ export default function Home() {
                             </Button>
                         </Form.Item>
                     </Form>
+                    <TransactionModal/>
+                    <BookModal/>
+                    <GenreModal/>
+                    <LibrarianModal/>
+                    <MemberModal/>
+                    <AddCreditsModal/>
                 </Content>
             </Layout >
         </main >
