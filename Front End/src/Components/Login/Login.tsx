@@ -90,9 +90,11 @@ const LoginContent: React.FC = () => {
                         <Form.Item
                         // wrapperCol={{ offset: 4, span: 16 }}
                         >
-                            <Button className="button" htmlType="submit">
-                                Log In
-                            </Button>
+                            <Link href='/dashboard'>
+                                <Button className="button" htmlType="submit">
+                                    Log In
+                                </Button>
+                            </Link>
                         </Form.Item>
                     </Form>
                 </Content>

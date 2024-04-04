@@ -9,6 +9,7 @@ import logo from '../../../public/logo.png';
 import ExploreIcon from '@mui/icons-material/Explore';
 import { ExploreNavbar } from '@/Components/ExploreNavbar/ExploreNavbar';
 import BookTile from '@/Components/BookTile/BookTile';
+import { Showcase } from '@/Components/Showcase/Showcase';
 
 const Explore: React.FC = () => {
   const [current, setCurrent] = useState('explore');
@@ -32,7 +33,7 @@ const Explore: React.FC = () => {
   };
 
   return (
-  <div className={styles.mainDiv}>
+  <main className={styles.main}>
     <Layout className={styles.layout}>
       <Header className={styles.header}>
         <div className={styles.headingContainer}>
@@ -41,24 +42,43 @@ const Explore: React.FC = () => {
             <h1 className={styles.heading}>eLibrary</h1>
           </div>
           <div className={styles.menuContainer}>
-            <ExploreNavbar/>
+            <ExploreNavbar current={current}/>
           </div>
         </div>
       </Header>
       <Content className={styles.content}>
+        <div className={styles.showcase}>
+          <Showcase/>
+        </div>
+        <h1 className={styles.contentheading}>Explore</h1>
+        <div className={styles.exploreContent}>
         <BookTile/>
-        <BookTile/>
-        <BookTile/>
-        <BookTile/>
-        <BookTile/>
-        <BookTile/>
-        <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+        </div>
       </Content>
       <Footer className={styles.footer}>
 
       </Footer>
     </Layout>
-  </div>
+  </main>
   );
 }
 

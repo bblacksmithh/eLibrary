@@ -8,27 +8,10 @@ import Image from 'next/image';
 import logo from '../../../public/logo.png';
 import ExploreIcon from '@mui/icons-material/Explore';
 import { ExploreNavbar } from '@/Components/ExploreNavbar/ExploreNavbar';
+import BookTile from '@/Components/BookTile/BookTile';
 
 const Explore: React.FC = () => {
-  const [current, setCurrent] = useState('explore');
-
-  const items: MenuProps['items'] = [
-    {
-      label: 'Explore',
-      key: 'explore',
-      icon: <ExploreIcon/>,
-    },
-    {
-      label: 'Trending',
-      key: 'trending',
-      icon: <ExploreIcon/>
-    },
-  ]
-
-  const onClick: MenuProps['onClick'] = (e) => {
-    console.log('click ', e);
-    setCurrent(e.key);
-  };
+  const [current, setCurrent] = useState('trending');
 
   return (
   <div className={styles.mainDiv}>
@@ -40,12 +23,36 @@ const Explore: React.FC = () => {
             <h1 className={styles.heading}>eLibrary</h1>
           </div>
           <div className={styles.menuContainer}>
-            <ExploreNavbar/>
+            <ExploreNavbar current={current}/>
           </div>
         </div>
       </Header>
       <Content className={styles.content}>
-
+        <h1 className={styles.contentheading}>
+            Trending
+        </h1>
+        <div className={styles.trendingContent}>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+            <BookTile/>
+        </div>
       </Content>
       <Footer className={styles.footer}>
 
