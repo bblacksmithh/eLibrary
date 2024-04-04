@@ -9,31 +9,12 @@ import logo from '../../../public/logo.png';
 import ExploreIcon from '@mui/icons-material/Explore';
 import { ExploreNavbar } from '@/Components/ExploreNavbar/ExploreNavbar';
 import BookTile from '@/Components/BookTile/BookTile';
-import { Showcase } from '@/Components/Showcase/Showcase';
 
 const Explore: React.FC = () => {
-  const [current, setCurrent] = useState('explore');
-
-  const items: MenuProps['items'] = [
-    {
-      label: 'Explore',
-      key: 'explore',
-      icon: <ExploreIcon/>,
-    },
-    {
-      label: 'Trending',
-      key: 'trending',
-      icon: <ExploreIcon/>
-    },
-  ]
-
-  const onClick: MenuProps['onClick'] = (e) => {
-    console.log('click ', e);
-    setCurrent(e.key);
-  };
+  const [current, setCurrent] = useState('trending');
 
   return (
-  <main className={styles.main}>
+  <div className={styles.mainDiv}>
     <Layout className={styles.layout}>
       <Header className={styles.header}>
         <div className={styles.headingContainer}>
@@ -47,12 +28,11 @@ const Explore: React.FC = () => {
         </div>
       </Header>
       <Content className={styles.content}>
-        <div className={styles.showcase}>
-          <Showcase/>
-        </div>
-        <h1 className={styles.contentheading}>Explore</h1>
-        <div className={styles.exploreContent}>
-        <BookTile/>
+        <h1 className={styles.contentheading}>
+            Trending
+        </h1>
+        <div className={styles.trendingContent}>
+            <BookTile/>
             <BookTile/>
             <BookTile/>
             <BookTile/>
@@ -78,7 +58,7 @@ const Explore: React.FC = () => {
 
       </Footer>
     </Layout>
-  </main>
+  </div>
   );
 }
 

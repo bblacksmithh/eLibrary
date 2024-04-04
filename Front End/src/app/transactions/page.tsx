@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './styles.module.scss'
 import { Layout, Flex, TableProps, Tag, Space } from 'antd'
 import Image from 'next/image'
@@ -7,6 +7,7 @@ import logo from '../../../public/logo.png'
 import SideMenu from '@/Components/SideMenu/SideMenu'
 import {Table} from 'antd'
 const Dashboard: React.FC = () => {
+  const [current, setCurrent] = useState('transactions');
   const {Header, Footer, Content} = Layout;
   
   interface DataType {
@@ -102,9 +103,9 @@ const Dashboard: React.FC = () => {
         </div>
       </Header>
       <Content className={styles.content}>
-        <h1>Heading</h1>
+        <h1>Transactions</h1>
         <div className={styles.mainContainer}>
-          <SideMenu />
+          <SideMenu current={''} />
           <div className={styles.dashboardContent}>
             <div className={styles.buttonSection}>
 

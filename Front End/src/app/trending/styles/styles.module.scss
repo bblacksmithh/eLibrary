@@ -1,0 +1,98 @@
+.main {
+    align-items: center;
+    min-height: 100vh;
+    min-width: 100vw;
+}
+
+.layout {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.header {
+    background-color: rgba(0, 0, 0, 0);
+    margin-bottom: 100px;
+}
+
+.headingContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: stretch;
+    border-bottom: 1px solid green;
+}
+
+.logoContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: calc(50vw - 20px);
+    justify-content: flex-start;
+    margin: 20px;
+}
+
+.logo {
+    height: 40px;
+    width: 40px;
+    
+}
+
+.menuContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: calc(50vw - 20px);
+    justify-content: flex-end;
+    margin: 20px;
+}
+
+.menu {
+    color: white !important;
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0);
+    align-items: center !important;
+}
+
+.menu.item {
+    color: white !important;
+    width: 100px;
+}
+
+.heading {
+    color: white;
+}
+
+.content {
+    margin: auto;
+    align-items: center;
+    min-height: calc(100vh - 110px);
+    width: 90vw;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.trendingContent {
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    margin: auto;
+    align-items: center;
+    justify-content:center;
+    width: 90vw;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.showcase {
+    width: 90vw;
+    display: block;
+    align-items: center;
+}
+.contentheading {
+    color:white;
+    margin: auto;
+    width: 90vw;
+    text-align: center;
+    margin: 10px;
+    align-items: center;
+}
+.footer {
+    background-color: rgba(0, 0, 0, 0);
+}

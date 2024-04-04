@@ -102,7 +102,7 @@ const Dashboard: React.FC = () => {
         </div>
       </Header>
       <Content className={styles.content}>
-        <h1>Heading</h1>
+        <h1>Genres</h1>
         <div className={styles.mainContainer}>
           <SideMenu />
           <div className={styles.dashboardContent}>
