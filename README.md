@@ -6,4 +6,4 @@
 ![alt text](https://github.com/bblacksmithh/eLibrary/blob/main/ManageGenres.jpeg)
 ![alt text](https://github.com/bblacksmithh/eLibrary/blob/main/ManageMembers.jpeg)
 ![alt text](https://github.com/bblacksmithh/eLibrary/blob/main/ManageLibrarians.jpeg)
-![alt text](https://github.com/bblacksmithh/eLibrary/blob/main/ManageLibrarians.jpeg)
+![alt text](https://github.com/bblacksmithh/eLibrary/blob/main/ExplorePage.jpeg)
