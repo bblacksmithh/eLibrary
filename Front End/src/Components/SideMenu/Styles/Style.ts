@@ -18,9 +18,9 @@ export const useStyles = createStyles(({css,cx}) => {
             .${menuItem} {
                 color: green;
                 font-size: large;
-                height: 50px;
+                height: fit-content;
                 align-items: center;
-                text-align: center;
+                text-align: left;
                 margin: 10px auto;
                 vertical-align: middle;
                 &:hover {

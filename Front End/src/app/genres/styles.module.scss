@@ -43,11 +43,12 @@
     background-color: rgba(0, 0, 0, 0);
 
 }
-.content h1 {
+.dashboardContent h1 {
     color: white;
     width: 100%;
     text-align: center;
-    margin: 0 auto 30px auto;
+    margin-bottom: 30px;
+    
 }
 .mainContainer {
     display: flex;
@@ -56,8 +57,29 @@
     min-height: 100%;
 }
 .dashboardContent {
+    margin: 0 auto;
     width: 100%;
-    background-color: green;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.buttonSection {
+    display: flex;
+    justify-content: start;
+    width: 95%;
+    margin: 20px auto;
+}
+
+.tableSection {
+    background-color: white;
+    border-radius: 10px;
+    width: 95%;
+    height: 90%;
+    margin: auto;
 }
 .footer {
     width: calc(100vw - 80px);

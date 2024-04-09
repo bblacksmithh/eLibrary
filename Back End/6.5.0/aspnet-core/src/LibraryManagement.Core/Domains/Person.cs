@@ -20,7 +20,7 @@ namespace LibraryManagement.Domains
         public string Email { get; set; }
         [StringLength(13)]
         public string NationalId { get; set; }
-        public DateTime RegisterDate { get; set; } = DateTime.Now;
+        public DateTime? RegisterDate { get; set; } = DateTime.Now;
         public User User { get; set; }
     }
 }

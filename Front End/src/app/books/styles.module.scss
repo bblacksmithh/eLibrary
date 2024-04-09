@@ -54,10 +54,30 @@
     gap: 20px;
     width: 100%;
     min-height: 100%;
+    justify-content: center;
+}
+.buttonSection {
+    display: flex;
+    justify-content: start;
+    width: 95%;
+    margin: 20px auto;
 }
 .dashboardContent {
+    margin: 0 auto;
     width: 100%;
-    background-color: green;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+.tableSection {
+    background-color: white;
+    border-radius: 10px;
+    width: 95%;
+    height: 90%;
+    margin: auto;
 }
 .footer {
     width: calc(100vw - 80px);

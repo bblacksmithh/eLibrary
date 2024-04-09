@@ -2,7 +2,7 @@
 
 import { Layout, Menu, MenuProps } from 'antd';
 import { Content, Footer, Header } from 'antd/es/layout/layout';
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styles from './styles/styles.module.scss';
 import Image from 'next/image';
 import logo from '../../../public/logo.png';
@@ -10,9 +10,13 @@ import ExploreIcon from '@mui/icons-material/Explore';
 import { ExploreNavbar } from '@/Components/ExploreNavbar/ExploreNavbar';
 import BookTile from '@/Components/BookTile/BookTile';
 import { Showcase } from '@/Components/Showcase/Showcase';
+import { BookActionContext, IBookResponse } from '@/Providers/ManageBooks/context';
 
 const Explore: React.FC = () => {
   const [current, setCurrent] = useState('explore');
+  const [allBooks, setAllBooks] = useState<IBookResponse>();
+  const {getAllBooks} = useContext(BookActionContext);
+
 
   const items: MenuProps['items'] = [
     {
@@ -32,6 +36,14 @@ const Explore: React.FC = () => {
     setCurrent(e.key);
   };
 
+  useEffect(() => {
+    getAllBooks()
+    .then((response) => {
+      setAllBooks(response);
+    })
+  }, [])
+  console.log('allBooks',allBooks)
+
   return (
   <main className={styles.main}>
     <Layout className={styles.layout}>
@@ -47,31 +59,16 @@ const Explore: React.FC = () => {
         </div>
       </Header>
       <Content className={styles.content}>
-        <div className={styles.showcase}>
-          <Showcase/>
-        </div>
         <h1 className={styles.contentheading}>Explore</h1>
         <div className={styles.exploreContent}>
-        <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
+        {allBooks?.result.items.map((book)=> (
+          <BookTile 
+            bookTitle={book.title}
+            bookAuthor={book.author}
+            genres={[book.genreIds]}
+            isbn={book.isbn}
+            key={book.id}/>
+        ))}
         </div>
       </Content>
       <Footer className={styles.footer}>

@@ -19,30 +19,30 @@ export const Showcase: React.FC = () => {
                 <Carousel autoplay>
                     <div>
                         <div className={styles.bookContainer}>
+                            {/* <BookTile />
                             <BookTile />
-                            <BookTile />
-                            <BookTile />
+                            <BookTile /> */}
                         </div>
                     </div>
                     <div>
                         <div className={styles.bookContainer}>
+                            {/* <BookTile />
                             <BookTile />
-                            <BookTile />
-                            <BookTile />
+                            <BookTile /> */}
                         </div>
                     </div>
                     <div>
                         <div className={styles.bookContainer}>
+                            {/* <BookTile />
                             <BookTile />
-                            <BookTile />
-                            <BookTile />
+                            <BookTile /> */}
                         </div>
                     </div>
                     <div>
                         <div className={styles.bookContainer}>
+                            {/* <BookTile />
                             <BookTile />
-                            <BookTile />
-                            <BookTile />
+                            <BookTile /> */}
                         </div>
                     </div>
                 </Carousel>

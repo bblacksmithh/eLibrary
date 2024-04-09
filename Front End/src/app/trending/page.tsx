@@ -2,19 +2,59 @@
 
 import { Layout, Menu, MenuProps } from 'antd';
 import { Content, Footer, Header } from 'antd/es/layout/layout';
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styles from './styles/styles.module.scss';
 import Image from 'next/image';
 import logo from '../../../public/logo.png';
 import ExploreIcon from '@mui/icons-material/Explore';
 import { ExploreNavbar } from '@/Components/ExploreNavbar/ExploreNavbar';
 import BookTile from '@/Components/BookTile/BookTile';
+import { Showcase } from '@/Components/Showcase/Showcase';
+import { BookActionContext, IBookResponse } from '@/Providers/ManageBooks/context';
 
 const Explore: React.FC = () => {
   const [current, setCurrent] = useState('trending');
+  const [allBooks, setAllBooks] = useState<IBookResponse>();
+  const {getAllBooks} = useContext(BookActionContext);
+
+
+  const items: MenuProps['items'] = [
+    {
+      label: 'Explore',
+      key: 'explore',
+      icon: <ExploreIcon/>,
+    },
+    {
+      label: 'Trending',
+      key: 'trending',
+      icon: <ExploreIcon/>
+    },
+  ]
+
+  const onClick: MenuProps['onClick'] = (e) => {
+    console.log('click ', e);
+    setCurrent(e.key);
+  };
+
+  useEffect(() => {
+    getAllBooks()
+    .then((response) => {
+      setAllBooks(response);
+      if (allBooks.result.items) {
+          setAllBooks(() => {
+            var newBooks: any = [{}];
+            for (let i = allBooks.result.items.length - 1; i >= 0; i--) {
+              newBooks = [...newBooks, allBooks.result.items[i]];
+            }
+            return newBooks;
+          })
+      }
+    })
+  }, [])
+  console.log('allBooks',allBooks)
 
   return (
-  <div className={styles.mainDiv}>
+  <main className={styles.main}>
     <Layout className={styles.layout}>
       <Header className={styles.header}>
         <div className={styles.headingContainer}>
@@ -28,37 +68,23 @@ const Explore: React.FC = () => {
         </div>
       </Header>
       <Content className={styles.content}>
-        <h1 className={styles.contentheading}>
-            Trending
-        </h1>
-        <div className={styles.trendingContent}>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
-            <BookTile/>
+        <h1 className={styles.contentheading}>Trending</h1>
+        <div className={styles.exploreContent}>
+        {allBooks?.result.items.map((book)=> (
+          <BookTile 
+            bookTitle={book.title}
+            bookAuthor={book.author}
+            genres={[book.genreIds]}
+            isbn={book.isbn}
+            key={book.id}/>
+        ))}
         </div>
       </Content>
       <Footer className={styles.footer}>
 
       </Footer>
     </Layout>
-  </div>
+  </main>
   );
 }
 

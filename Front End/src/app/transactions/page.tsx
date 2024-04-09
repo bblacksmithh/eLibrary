@@ -1,54 +1,71 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styles from './styles.module.scss'
 import { Layout, Flex, TableProps, Tag, Space } from 'antd'
 import Image from 'next/image'
 import logo from '../../../public/logo.png'
 import SideMenu from '@/Components/SideMenu/SideMenu'
 import {Table} from 'antd'
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { IAllTransactionResponse, TransactionActionContext } from '@/Providers/ManageTransactions/context'
 const Dashboard: React.FC = () => {
-  const [current, setCurrent] = useState('transactions');
   const {Header, Footer, Content} = Layout;
+  const [allTransactions, setAllTransactions] = useState<IAllTransactionResponse>();
+  const [allTransactionData, setAllTransactionData] = useState<any>([]);
+  const { getAllTransactions } = useContext(TransactionActionContext);
+
+  useEffect(() => {
+    getAllTransactions()
+      .then((response) => {
+        setAllTransactions(response);
+        console.log(response);
+
+        if (response) {
+          setAllTransactionData(
+            response.result.map((transaction) => ({
+              key: transaction.id,
+              member: transaction.memberId,
+              book: transaction.bookIds || [],
+              date: transaction.creationTime,
+              returnDate: transaction.returnDate,
+              status: 'Not Returned',
+            }))
+          );
+        }
+      })
+      .catch((error) => {
+        // Handle error
+        console.error('Error fetching genres:', error);
+      });
+  }, []);
   
   interface DataType {
     key: string;
-    name: string;
-    age: number;
-    address: string;
-    tags: string[];
+    member: string;
+    book: string[];
+    date: string;
+    returnDate: string;
+    status: string;
   }
   
   const columns: TableProps<DataType>['columns'] = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: 'Member',
+      dataIndex: 'member',
+      key: 'member',
       render: (text) => <a>{text}</a>
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
-    },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
-    },
-    {
-      title: 'Tags',
-      key: 'tags',
-      dataIndex: 'tags',
-      render: (_, { tags }) => (
+      title: 'Books',
+      key: 'books',
+      dataIndex: 'books',
+      render: (_, { book }) => (
         <>
-          {tags.map((tag) => {
-            let color = tag.length > 5 ? 'geekblue' : 'green';
-            if (tag === 'loser') {
-              color = 'volcano';
-            }
+          {book.map((book) => {
+            let color ='green';
             return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
+              <Tag color={color} key={book}>
+                {book.toUpperCase()}
               </Tag>
             );
           })}
@@ -56,40 +73,29 @@ const Dashboard: React.FC = () => {
       ),
     },
     {
+      title: 'Date',
+      dataIndex: 'date',
+      key: 'date',
+      render: ((text) => <a>{text}</a>)
+    },
+    {
+      title: 'Return Date',
+      dataIndex: 'returnDate',
+      key: 'returnDate',
+    },
+    {
       title: 'Action',
       key: 'action',
-      render: (_, record) => (
+      render: (_) => (
         <Space size="middle">
-          <a>Invite {record.name}</a>
-          <a>Delete</a>
+          <a style={{color:'green'}}><EditOutlined/></a>
+          <a style={{color:'red'}}><DeleteOutlined /></a>
         </Space>
       ),
     },
   ];
 
-  const data: DataType[] = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer'],
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser'],
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sydney No. 1 Lake Park',
-      tags: ['cool', 'teacher'],
-    },
-  ];
+  
 
   return (
     <main className={styles.main}>
@@ -103,15 +109,18 @@ const Dashboard: React.FC = () => {
         </div>
       </Header>
       <Content className={styles.content}>
-        <h1>Transactions</h1>
         <div className={styles.mainContainer}>
-          <SideMenu current={''} />
+          <SideMenu current={'transactions'} />
           <div className={styles.dashboardContent}>
+            <h1>Transactions</h1>
             <div className={styles.buttonSection}>
-
             </div>
             <div className={styles.tableSection}>
-              <Table columns={columns} dataSource={data}/>
+              <Table pagination={{
+              position: ["bottomCenter"],
+              defaultCurrent: 1,
+              defaultPageSize: 8,
+            }}  columns={columns} dataSource={allTransactionData}/>
             </div>
           </div>
         </div>

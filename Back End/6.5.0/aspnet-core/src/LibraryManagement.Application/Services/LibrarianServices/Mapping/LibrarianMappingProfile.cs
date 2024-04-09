@@ -22,7 +22,7 @@ namespace LibraryManagement.Services.LibrarianServices.Mapping
   
             CreateMap<LibrarianDto, User>()
                 .ForMember(x => x.UserName, m => m.MapFrom(x => x.Username))
-                .ForMember(x => x.Password, m => m.MapFrom(x => x.Password))
+                //////.ForMember(x => x.Password, m => m.MapFrom(x => x.Password))
                 .ForMember(x => x.EmailAddress, m => m.MapFrom(x => x.Email))
                 .ForMember(x => x.Name, m => m.MapFrom(x => x.FirstName))
                 .ForMember(x => x.Surname, m => m.MapFrom(x => x.LastName))

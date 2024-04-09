@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services;
+using Abp.Authorization;
 using Abp.Domain.Repositories;
 using Abp.IdentityFramework;
 using AutoMapper;
@@ -32,6 +33,7 @@ namespace LibraryManagement.Services.LibrarianServices
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        [AbpAllowAnonymous]
         [HttpPost]
         public async Task<LibrarianDto> CreateLibrarianAsync(LibrarianDto input)
         {

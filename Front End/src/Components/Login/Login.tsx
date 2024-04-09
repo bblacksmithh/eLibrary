@@ -2,31 +2,22 @@
 
 import Image from "next/image";
 import { useStyles } from "./styles/Style";
-import { Card, Divider, Button, Layout, Form, Input, Checkbox } from "antd";
+import { Card, Divider, Button, Layout, Form, Input, Checkbox, Alert } from "antd";
 import logo from '../../../public/logo.png';
 import Link from "next/link";
 import { Content, Header } from "antd/es/layout/layout";
-import { useState } from "react";
-import router from "next/router";
+import { useContext, useEffect, useState } from "react";
+import { ILibrarianAuthLogin, ILibrarianAuthResponse, LibrarianAuthActionContext, LibrarianAuthStateContext } from "@/Providers/AuthLibrarian/context";
+import { useRouter } from "next/navigation";
 
 
-const LoginContent: React.FC = () => {
+const LoginContent = () => {
+   
+    const {login} = useContext(LibrarianAuthActionContext);
+    const {error} = useContext(LibrarianAuthStateContext);
+    const router = useRouter()
 
-
-    // Define the type for the form field values
-    type FieldType = {
-        username: string;
-        password: string;
-        remember: boolean;
-    };
-
-    // State to store form values
-    const [formValues, setFormValues] = useState<FieldType>({
-        username: '',
-        password: '',
-        remember: false,
-    });
-
+    const ErrorLogin: React.FC = () => <Alert message='Invalid username or password' type="error" showIcon/>
 
     // Form validation rules
     const rules = {
@@ -35,12 +26,23 @@ const LoginContent: React.FC = () => {
     };
 
     // Event handler for form submission
-    const onFinish = (values: FieldType) => {
-        // Handle form submission logic, e.g., send data to the server
-        console.log('Form submitted:', values);
-        // Redirect to another page after successful submission
-        router.push('/dashboard');
-    };
+    
+        const onFinish = (values: any) => {
+            console.log('val', values)
+            const input: ILibrarianAuthLogin = {password:values.password, userNameOrEmailAddress:values.username}
+            console.log('inp', input);
+            login(input).then((response) => {
+               
+                localStorage.setItem('token', response.result.accessToken);
+                localStorage.setItem('userId', response.result.userId.toString());
+                router.push('/dashboard'), {scroll: false};
+            })
+        };
+
+
+    const onFinishFailed = (errorInfo: any) => {
+        console.log('Failed', errorInfo);
+    }
 
     const {styles, cx} = useStyles();
     return (
@@ -54,9 +56,9 @@ const LoginContent: React.FC = () => {
                     <Form
                         layout={"vertical"}
                         className={styles.form}
-                        name="basic"
-                        initialValues={formValues}
                         onFinish={onFinish}
+                        onFinishFailed={onFinishFailed}
+                        autoComplete="off"
                     >
                         <h1>Enter Your Details...</h1>
                         {/* Username */}
@@ -67,8 +69,6 @@ const LoginContent: React.FC = () => {
                             rules={rules.username}
                         >
                             <Input
-                                value={formValues.username}
-                                onChange={(e) => setFormValues({ ...formValues, username: e.target.value })}
                             />
                         </Form.Item>
 
@@ -81,8 +81,6 @@ const LoginContent: React.FC = () => {
                         >
                             <Input.Password
                                 className={styles.passwordInput}
-                                value={formValues.password}
-                                onChange={(e) => setFormValues({ ...formValues, password: e.target.value })}
                             />
                         </Form.Item>
 
@@ -90,11 +88,9 @@ const LoginContent: React.FC = () => {
                         <Form.Item
                         // wrapperCol={{ offset: 4, span: 16 }}
                         >
-                            <Link href='/dashboard'>
-                                <Button className="button" htmlType="submit">
-                                    Log In
-                                </Button>
-                            </Link>
+                            <Button className="button" htmlType="submit">
+                                Log In
+                            </Button>
                         </Form.Item>
                     </Form>
                 </Content>

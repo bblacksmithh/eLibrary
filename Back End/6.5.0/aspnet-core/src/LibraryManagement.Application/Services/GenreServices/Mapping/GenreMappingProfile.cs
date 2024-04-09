@@ -13,10 +13,8 @@ namespace LibraryManagement.Services.GenreServices.Mapping
     {
         public GenreMappingProfile()
         {
-            //CreateMap<GenreDto, Genre>()
-            //    .ForMember(x => x.Id, m => m.Ignore())
-            //    .ForMember(x => x.);
-         //   CreateMap<Genre, GenreDto>();
+            CreateMap<GenreDto, Genre>();
+            CreateMap<Genre, GenreDto>();
         }
     }
 }

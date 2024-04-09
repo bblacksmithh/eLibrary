@@ -55,9 +55,28 @@
     width: 100%;
     min-height: 100%;
 }
+.mainHeader {
+    display: flex;
+    width: 80vw;
+    justify-content: center;
+    transform: translateX(5vw);
+    
+}
 .dashboardContent {
     width: 100%;
-    background-color: green;
+}
+
+.tableSection {
+    align-items: center;
+    text-align: center;
+}
+
+.tableSection h1{
+    font-size: 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 .footer {
     width: calc(100vw - 80px);

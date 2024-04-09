@@ -1696,7 +1696,7 @@ namespace LibraryManagement.Migrations
                         .HasMaxLength(13)
                         .HasColumnType("nvarchar(13)");
 
-                    b.Property<DateTime>("RegisterDate")
+                    b.Property<DateTime?>("RegisterDate")
                         .HasColumnType("datetime2");
 
                     b.Property<long?>("UserId")

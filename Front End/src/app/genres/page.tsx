@@ -1,92 +1,83 @@
 "use client"
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styles from './styles.module.scss'
 import { Layout, Flex, TableProps, Tag, Space } from 'antd'
 import Image from 'next/image'
 import logo from '../../../public/logo.png'
 import SideMenu from '@/Components/SideMenu/SideMenu'
 import {Table} from 'antd'
+import { Span } from 'next/dist/trace'
+import { DeleteOutlined } from '@ant-design/icons'
+import { GenreActionContext, IGenreResponse } from '@/Providers/ManageGenres/context'
+import GenreModal from '@/Components/GenreModal/GenreModal'
 const Dashboard: React.FC = () => {
   const {Header, Footer, Content} = Layout;
+  const [allGenres, setAllGenres] = useState<IGenreResponse>();
+  const [allGenreData, setAllGenreData] = useState<any>([]);
+  const {getAllGenres, deleteGenre} = useContext(GenreActionContext);
   
+  useEffect(() => {
+    getAllGenres()
+      .then((response) => {
+        setAllGenres(response);
+        console.log(response);
+        
+        if (response && response.result && response.result.items) {
+          setAllGenreData(
+            response.result.items.map((genre) => ({
+              key: genre.id,
+              genre: genre.genreName,
+            }))
+          );
+        }
+      })
+      .catch((error) => {
+        // Handle error
+        console.error('Error fetching genres:', error);
+      });
+  }, []);
+
+  const handleDeleteGenre = (genreId: string) => {
+    // Call deleteGenre function with the genreId
+    deleteGenre({id: genreId})
+      .then(() => {
+        // Handle deletion success
+        console.log(`Genre with ID ${genreId} deleted successfully.`);
+        window.location.reload();
+      })
+      .catch((error) => {
+        // Handle deletion error
+        console.error(`Error deleting genre with ID ${genreId}:`, error);
+      });
+  };
+
   interface DataType {
     key: string;
-    name: string;
-    age: number;
-    address: string;
-    tags: string[];
+    genre: string;
   }
   
   const columns: TableProps<DataType>['columns'] = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: 'Genre',
+      dataIndex: 'genre',
+      key: 'genre',
       render: (text) => <a>{text}</a>
-    },
-    {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
-    },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
-    },
-    {
-      title: 'Tags',
-      key: 'tags',
-      dataIndex: 'tags',
-      render: (_, { tags }) => (
-        <>
-          {tags.map((tag) => {
-            let color = tag.length > 5 ? 'geekblue' : 'green';
-            if (tag === 'loser') {
-              color = 'volcano';
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
     },
     {
       title: 'Action',
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
-          <a>Invite {record.name}</a>
-          <a>Delete</a>
+          <a
+            onClick={() => {
+              handleDeleteGenre(record.key); // Pass the genre ID to the handleDeleteGenre function
+            }} 
+            style={{color:'red'}}
+          >
+            <DeleteOutlined />
+          </a>
         </Space>
       ),
-    },
-  ];
-
-  const data: DataType[] = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer'],
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser'],
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sydney No. 1 Lake Park',
-      tags: ['cool', 'teacher'],
     },
   ];
 
@@ -102,15 +93,19 @@ const Dashboard: React.FC = () => {
         </div>
       </Header>
       <Content className={styles.content}>
-        <h1>Genres</h1>
         <div className={styles.mainContainer}>
-          <SideMenu />
+          <SideMenu current='genres'/>
           <div className={styles.dashboardContent}>
+            <h1>Genres</h1>
             <div className={styles.buttonSection}>
-
+              <GenreModal/>
             </div>
             <div className={styles.tableSection}>
-              <Table columns={columns} dataSource={data}/>
+              <Table style={{width:'100%'}} pagination={{
+              position: ["bottomCenter"],
+              defaultCurrent: 1,
+              defaultPageSize: 8,
+            }} columns={columns} dataSource={allGenreData}/>
             </div>
           </div>
         </div>

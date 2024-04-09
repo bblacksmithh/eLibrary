@@ -23,7 +23,7 @@ namespace LibraryManagement.Services.MemberServices.Dto
         /// <summary>
         /// 
         /// </summary>
-        public string NationalId { get; set; }
+        public string? NationalId { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -35,7 +35,7 @@ namespace LibraryManagement.Services.MemberServices.Dto
         /// <summary>
         /// 
         /// </summary>
-        public DateTime RegisterDate { get; set; }
+        public DateTime? RegisterDate { get; set; }
         /// <summary>
         /// 
         /// </summary>

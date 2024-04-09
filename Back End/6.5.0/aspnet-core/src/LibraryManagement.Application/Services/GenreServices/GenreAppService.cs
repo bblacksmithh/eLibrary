@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services;
+using Abp.Authorization;
 using Abp.Domain.Repositories;
 using LibraryManagement.Domains;
 using LibraryManagement.Services.GenreServices.Dtos;
@@ -18,7 +19,7 @@ namespace LibraryManagement.Services.GenreServices
         {
             _genreBookRepository = genreBookRepository;
         }
-
+        [AbpAllowAnonymous]
         [HttpDelete]
         public async Task DeleteGenreAsync(Guid id)
         {

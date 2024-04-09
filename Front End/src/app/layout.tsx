@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { LibrarianAuthProvider } from "@/Providers/AuthLibrarian";
+import { BookProvider } from "@/Providers/ManageBooks";
+import {GenreProvider} from "@/Providers/ManageGenres"
+import { MemberProvider } from "@/Providers/ManageMembers";
+import { TransactionProvider } from "@/Providers/ManageTransactions";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +20,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <LibrarianAuthProvider>
+      <MemberProvider>
+        <TransactionProvider>
+          <BookProvider>
+            <GenreProvider>
+                <html lang="en">
+                  <body className={inter.className}>{children}</body>
+                </html>
+            </GenreProvider>
+          </BookProvider>
+        </TransactionProvider>
+      </MemberProvider>
+    </LibrarianAuthProvider>
   );
 }

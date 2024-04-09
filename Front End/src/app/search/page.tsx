@@ -35,26 +35,7 @@ const Search: React.FC = () => {
                     <Search className={styles.search} placeholder="input search text" onSearch={onSearch} enterButton />
                     </div>
                     <div className={styles.searchContent}>
-                        <BookTile/>
-                        <BookTile/>
-                        <BookTile/>
-                        <BookTile/>
-                        <BookTile/>
-                        <BookTile/>
-                        <BookTile/>
-                        <BookTile/>
-                        <BookTile/>
-                        <BookTile/>
-                        <BookTile/>
-                        <BookTile/>
-                        <BookTile/>
-                        <BookTile/>
-                        <BookTile/>
-                        <BookTile/>
-                        <BookTile/>
-                        <BookTile/>
-                        <BookTile/>
-                        <BookTile/>
+{/* books here */}
                     </div>
                 </Content>
                 <Footer className={styles.footer}>
