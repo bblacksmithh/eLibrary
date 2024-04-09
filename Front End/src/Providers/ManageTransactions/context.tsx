@@ -17,14 +17,20 @@ export interface IAllTransactionResponse {
     result: ITransactionResponse[]
 }
 
+export interface IDeleteTransaction {
+    id?: number;
+}
+
 export interface ITransactionStateContext {
     allTransactions?: IAllTransactionResponse;
     isInProgress?: any;
     error?: any;
+    deleteTransactionInput?: IDeleteTransaction;
 }
 
 export interface ITransactionActionContext {
     getAllTransactions: () => Promise<IAllTransactionResponse>
+    deleteTransaction: (deleteTransaction: IDeleteTransaction) => Promise<IDeleteTransaction>
 }
 
 export const TRANSACTION_CONTEXT_INITIAL_STATE: ITransactionStateContext = {};

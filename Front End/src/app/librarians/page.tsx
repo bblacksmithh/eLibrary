@@ -14,7 +14,7 @@ const Dashboard: React.FC = () => {
   const { Header, Footer, Content } = Layout;
   const [allLibrarians, setAllLibrarians] = useState<IAllLibrarianResponse>();
   const [allLibrarianData, setAllLibrarianData] = useState<any>([]);
-  const { getAllLibrarians } = useContext(LibrarianAuthActionContext);
+  const { getAllLibrarians, deleteLibrarian } = useContext(LibrarianAuthActionContext);
 
   useEffect(() => {
     getAllLibrarians()
@@ -39,6 +39,20 @@ const Dashboard: React.FC = () => {
         console.error('Error fetching genres:', error);
       });
   }, []);
+
+  const handleDeleteLibrarian = (librarianId: string) => {
+    // Call deleteGenre function with the genreId
+    deleteLibrarian({id: librarianId})
+      .then(() => {
+        // Handle deletion success
+        console.log(`Librarian with ID ${librarianId} deleted successfully.`);
+        window.location.reload();
+      })
+      .catch((error) => {
+        // Handle deletion error
+        console.error(`Error deleting librarian with ID ${librarianId}:`, error);
+      });
+  };
 
   interface DataType {
     key: string;
@@ -73,10 +87,13 @@ const Dashboard: React.FC = () => {
     {
       title: 'Action',
       key: 'action',
-      render: (_) => (
+      render: (_, record) => (
         <Space size="middle">
-          <a style={{ color: 'green' }}><EditOutlined /></a>
-          <a style={{ color: 'red' }}><DeleteOutlined /></a>
+          <a style={{ color: 'red' }}
+          onClick={() => {
+            handleDeleteLibrarian(record.key); // Pass the genre ID to the handleDeleteGenre function
+          }} 
+          ><DeleteOutlined /></a>
         </Space>
       ),
     },

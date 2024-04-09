@@ -2,8 +2,8 @@
 
 import React, { FC, PropsWithChildren, useContext, useReducer, useState } from "react";
 import { librarianAuthReducer } from "./reducer";
-import { IAllLibrarianResponse, ILibrarianAuthLogin, ILibrarianAuthResponse, ILibrarianCreate, LIBRARIAN_AUTH_CONTEXT_INITIAL_STATE, LibrarianAuthActionContext, LibrarianAuthStateContext } from "./context";
-import { librarianLoginAction, librarianCreateAction } from "./action";
+import { IAllLibrarianResponse, IDeleteLibrarian, ILibrarianAuthLogin, ILibrarianAuthResponse, ILibrarianCreate, LIBRARIAN_AUTH_CONTEXT_INITIAL_STATE, LibrarianAuthActionContext, LibrarianAuthStateContext } from "./context";
+import { librarianLoginAction, librarianCreateAction, deleteLibrarianAction } from "./action";
 import axios from "axios";
 
 const LibrarianAuthProvider: FC<PropsWithChildren<any>> = ({ children }) => {
@@ -69,6 +69,25 @@ const LibrarianAuthProvider: FC<PropsWithChildren<any>> = ({ children }) => {
                         });
                 }
             });
+            const deleteLibrarian = (userInput: IDeleteLibrarian): Promise<IDeleteLibrarian> =>
+                new Promise((resolve, reject) => {
+                    dispatch(deleteLibrarianAction(userInput));
+                    console.log('userinput', userInput)
+                    setIsInProgress(true);
+                    axios.delete(`https://localhost:44311/api/services/app/Librarian/Delete?id=${userInput.id}`)
+                        .then((response) => {
+                            console.log('resp', response);
+        
+                            setErrorCreate('');
+                            setIsInProgress(false);
+                            resolve(response.data);
+                        })
+                        .catch(e => {
+                            console.log(e.message);
+                            setErrorCreate(e.message);
+                            reject(e.message);
+                        })
+                })
     return (
         <LibrarianAuthStateContext.Provider
             value={{
@@ -81,7 +100,8 @@ const LibrarianAuthProvider: FC<PropsWithChildren<any>> = ({ children }) => {
                 value={{ 
                     login,
                     create,
-                    getAllLibrarians
+                    getAllLibrarians,
+                    deleteLibrarian
                  }}
             >
                 {children}

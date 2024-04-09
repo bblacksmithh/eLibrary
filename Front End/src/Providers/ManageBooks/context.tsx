@@ -33,16 +33,23 @@ export interface IBookCreate {
     genreIds?: string[];
 }
 
+export interface IDeleteBook{
+    id?: number;
+}
+
 export interface IBookStateContext {
     allBooks?: IBookResponse;
     isInProgress?: any;
     error?: any;
     bookInput?: IBookCreate;
+    deleteBookInput?: IDeleteBook;
 }
+
 
 export interface IBookActionContext {
     getAllBooks: () => Promise<IBookResponse>
     createBook: (bookInput: IBookCreate) => Promise<IBookCreate>
+    deleteBook: (deleteBook: IDeleteBook) => Promise<IDeleteBook>
 }
 
 export const BOOK_CONTEXT_INITIAL_STATE: IBookStateContext = {};

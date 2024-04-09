@@ -59,7 +59,7 @@ export interface IAllLibrarianResponse {
 }
 
 export interface IDeleteLibrarian {
-    id: number
+    id: string
 }
 
 export interface ILibrarianStateContext {
@@ -68,12 +68,14 @@ export interface ILibrarianStateContext {
     error?: any;
     librarianInput?: ILibrarianCreate;
     allLibrarians?: IAllLibrarianResponse;
+    deletedLibrarian?: IDeleteLibrarian;
 }
 
 export interface ILibrarianActionContext {
     login: (auth: ILibrarianAuthLogin) => Promise<ILibrarianAuthResponse>
     create: (create: ILibrarianCreate) => Promise<ILibrarianCreate>
     getAllLibrarians: () => Promise<IAllLibrarianResponse>
+    deleteLibrarian: (deleteLibrarian: IDeleteLibrarian) => Promise<IDeleteLibrarian>
 }
 
 export const LIBRARIAN_AUTH_CONTEXT_INITIAL_STATE: ILibrarianStateContext = {};

@@ -14,7 +14,7 @@ const Dashboard: React.FC = () => {
   const { Header, Footer, Content } = Layout;
   const [allMember, setAllMembers] = useState<IMemberResponse>();
   const [allMemberData, setAllMemberData] = useState<any>([]);
-  const { getAllMembers } = useContext(MemberActionContext);
+  const { getAllMembers, deleteMember } = useContext(MemberActionContext);
 
   useEffect(() => {
     getAllMembers()
@@ -40,6 +40,20 @@ const Dashboard: React.FC = () => {
         console.error('Error fetching genres:', error);
       });
   }, []);
+
+  const handleDeleteMember = (memberId: string) => {
+    // Call deleteGenre function with the genreId
+    deleteMember({id: memberId})
+      .then(() => {
+        // Handle deletion success
+        console.log(`Member with ID ${memberId} deleted successfully.`);
+        window.location.reload();
+      })
+      .catch((error:any) => {
+        // Handle deletion error
+        console.error(`Error deleting member with ID ${memberId}:`, error);
+      });
+  };
 
   interface DataType {
     key: string;
@@ -81,7 +95,11 @@ const Dashboard: React.FC = () => {
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
-          <a style={{ color: 'red' }}><DeleteOutlined /></a>
+          <a style={{ color: 'red' }}
+          onClick={() => {
+            handleDeleteMember(record.key); // Pass the genre ID to the handleDeleteGenre function
+          }} 
+          ><DeleteOutlined /></a>
         </Space>
       ),
     },

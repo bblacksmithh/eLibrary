@@ -15,6 +15,11 @@ export function memberReducer(state: IMemberStateContext, action: ReduxActions.A
                 ...state,
                 ...payload,
             }
+        case MemberActions.DELETE_MEMBER:
+            return {
+                ...state,
+                ...payload,
+            }
         default:
             return state;
     }

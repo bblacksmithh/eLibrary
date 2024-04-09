@@ -22,6 +22,11 @@ export function librarianAuthReducer(state: ILibrarianStateContext, action: Redu
                 ...state,
                 ...payload,
             };
+        case LibrarianAuthActions.DELETE_LIBRARIAN:
+            return {
+                ...state,
+                ...payload,
+            }
         default:
             return state;
     }

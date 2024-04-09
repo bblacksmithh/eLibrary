@@ -48,11 +48,13 @@ export interface IMemberStateContext {
     isInProgress?: any;
     error?: any;
     memberInput?: IMemberCreate;
+    memberDeleteInput?: IMemberDelete;
 }
 
 export interface IMemberActionContext {
     getAllMembers: () => Promise<IMemberResponse>
     createMember: (createMember: IMemberCreate) => Promise<IMemberCreate>
+    deleteMember: (deleteMember: IMemberDelete) => Promise<IMemberDelete>
 }
 
 export const MEMBER_CONTEXT_INITIAL_STATE: IMemberStateContext = {};

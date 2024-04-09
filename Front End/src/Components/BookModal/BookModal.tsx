@@ -58,7 +58,7 @@ const BookModal = () => {
     createBook(input).then((response) => {
       handleOk();
       console.log(response);
-      // window.location.reload();
+      window.location.reload();
     });
   }
 

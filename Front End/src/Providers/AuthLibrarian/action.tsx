@@ -1,12 +1,13 @@
 "use client"
 
 import { createAction } from "redux-actions";
-import { IAllLibrarianResponse, ILibrarianAuthLogin, ILibrarianAuthResponse, ILibrarianCreate, ILibrarianStateContext } from "./context";
+import { IAllLibrarianResponse, IDeleteLibrarian, ILibrarianAuthLogin, ILibrarianAuthResponse, ILibrarianCreate, ILibrarianStateContext } from "./context";
 
 export enum LibrarianAuthActions {
     LIBRARIAN_LOGIN = "LIBRARIAN_LOGIN",
     LIBRARIAN_CREATE = 'LIBRARIAN_CREATE',
-    GET_ALL_LIBRARIANS = 'GET_ALL_LIBRARIANS'
+    GET_ALL_LIBRARIANS = 'GET_ALL_LIBRARIANS',
+    DELETE_LIBRARIAN = "DELETE_LIBRARIAN"
 }
 
 export const librarianLoginAction = createAction<ILibrarianStateContext, ILibrarianAuthLogin>(
@@ -23,3 +24,8 @@ export const getAllBooksAction = createAction<ILibrarianStateContext, IAllLibrar
     LibrarianAuthActions.GET_ALL_LIBRARIANS,
     (allLibrarians)=>({allLibrarians})
 );
+
+export const deleteLibrarianAction = createAction<ILibrarianStateContext, IDeleteLibrarian>(
+    LibrarianAuthActions.DELETE_LIBRARIAN,
+    (deletedLibrarian) => ({deletedLibrarian})
+)

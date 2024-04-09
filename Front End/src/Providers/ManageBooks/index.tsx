@@ -3,8 +3,8 @@
 import React, { FC, PropsWithChildren, useContext, useReducer, useState } from "react";
 import axios from "axios";
 import { bookReducer } from "./reducer";
-import { BOOK_CONTEXT_INITIAL_STATE, BookActionContext, BookStateContext, IBookCreate, IBookResponse } from "./context";
-import { createBookAction, getAllBooksAction } from "./actions";
+import { BOOK_CONTEXT_INITIAL_STATE, BookActionContext, BookStateContext, IBookCreate, IBookResponse, IDeleteBook } from "./context";
+import { createBookAction, deleteBookAction, getAllBooksAction } from "./actions";
 
 const BookProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     const [state, dispatch] = useReducer(bookReducer, BOOK_CONTEXT_INITIAL_STATE);
@@ -49,6 +49,26 @@ const BookProvider: FC<PropsWithChildren<any>> = ({ children }) => {
                         reject(e.message);
                     })
             })
+
+            const deleteBook = (userInput: IDeleteBook): Promise<IDeleteBook> =>
+                new Promise((resolve, reject) => {
+                    dispatch(deleteBookAction(userInput));
+                    console.log('userinput', userInput)
+                    setIsInProgress(true);
+                    axios.delete(`https://localhost:44311/api/services/app/Book/DeleteBook?id=${userInput.id}`)
+                        .then((response) => {
+                            console.log('resp', response);
+        
+                            setErrorCreate('');
+                            setIsInProgress(false);
+                            resolve(response.data);
+                        })
+                        .catch(e => {
+                            console.log(e.message);
+                            setErrorCreate(e.message);
+                            reject(e.message);
+                        })
+                })
     return (
         <BookStateContext.Provider
             value={{
@@ -60,7 +80,8 @@ const BookProvider: FC<PropsWithChildren<any>> = ({ children }) => {
             <BookActionContext.Provider
                 value={{ 
                     getAllBooks,
-                    createBook
+                    createBook,
+                    deleteBook
                  }}
             >
                 {children}

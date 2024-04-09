@@ -1,10 +1,11 @@
 import { createAction } from "redux-actions";
-import { IMemberCreate, IMemberResponse, IMemberStateContext } from "./context";
+import { IMemberCreate, IMemberDelete, IMemberResponse, IMemberStateContext } from "./context";
 
 
 export enum MemberActions {
     GET_ALL_MEMBERS = "GET_ALL_MEMBERS",
     CREATE_MEMBER = "CREATE_MEMBER",
+    DELETE_MEMBER = "DELETE_MEMBER",
 }
 
 export const getAllMembersAction = createAction<IMemberStateContext, IMemberResponse>(
@@ -15,4 +16,9 @@ export const getAllMembersAction = createAction<IMemberStateContext, IMemberResp
 export const createMemberAction = createAction<IMemberStateContext, IMemberCreate>(
     MemberActions.CREATE_MEMBER,
     (memberInput) => ({memberInput})
+)
+
+export const deleteMemberAction = createAction<IMemberStateContext, IMemberDelete>(
+    MemberActions.DELETE_MEMBER,
+    (memberDeleteInput) => ({memberDeleteInput})
 )
