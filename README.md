@@ -2,7 +2,7 @@
 ![alt text](https://github.com/bblacksmithh/eLibrary/blob/main/LoginPage.jpeg)
 ![alt text](https://github.com/bblacksmithh/eLibrary/blob/main/ManageTransactions.jpeg)
 ![alt text](https://github.com/bblacksmithh/eLibrary/blob/main/ManageBooks.jpeg)
-![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![alt text](https://github.com/bblacksmithh/eLibrary/blob/main/ManageGenres.jpeg)
 ![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
 ![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
 ![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
