@@ -34,7 +34,7 @@ export interface IBookCreate {
 }
 
 export interface IDeleteBook{
-    id?: number;
+    id?: string;
 }
 
 export interface IBookStateContext {

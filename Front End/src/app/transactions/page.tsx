@@ -8,6 +8,7 @@ import SideMenu from '@/Components/SideMenu/SideMenu'
 import {Table} from 'antd'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { IAllTransactionResponse, TransactionActionContext } from '@/Providers/ManageTransactions/context'
+import TransactionModal from '@/Components/TransactionModal/TransactionModal'
 const Dashboard: React.FC = () => {
   const {Header, Footer, Content} = Layout;
   const [allTransactions, setAllTransactions] = useState<IAllTransactionResponse>();
@@ -114,6 +115,7 @@ const Dashboard: React.FC = () => {
           <div className={styles.dashboardContent}>
             <h1>Transactions</h1>
             <div className={styles.buttonSection}>
+              <TransactionModal/>
             </div>
             <div className={styles.tableSection}>
               <Table pagination={{

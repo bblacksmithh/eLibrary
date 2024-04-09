@@ -86,7 +86,7 @@ const Dashboard: React.FC = () => {
       key: 'credits',
       render: (value) => {
         return (
-          <text>R {value}</text>
+          <p>R {value}</p>
         )
       }
     },
@@ -97,7 +97,7 @@ const Dashboard: React.FC = () => {
         <Space size="middle">
           <a style={{ color: 'red' }}
           onClick={() => {
-            handleDeleteMember(record.key); // Pass the genre ID to the handleDeleteGenre function
+            handleDeleteMember(record.key); // Pass the member ID to the handleDeleteGenre function
           }} 
           ><DeleteOutlined /></a>
         </Space>

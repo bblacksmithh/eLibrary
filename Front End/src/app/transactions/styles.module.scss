@@ -19,6 +19,12 @@
     justify-content: stretch;
     border-bottom: 1px solid green;
 }
+.buttonSection {
+    display: flex;
+    justify-content: start;
+    width: 95%;
+    margin: 20px auto;
+}
 .logoContainer {
     display: flex;
     flex-direction: row;

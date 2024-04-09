@@ -13,7 +13,7 @@ import BookModal from '@/Components/BookModal/BookModal'
     const { Header, Footer, Content } = Layout;
     const [allBooks, setAllBooks] = useState<IBookResponse>();
     const [allBookData, setAllBookData] = useState<any>([]);
-    const {getAllBooks} = useContext(BookActionContext);
+    const {getAllBooks, deleteBook} = useContext(BookActionContext);
 
     useEffect(() => {
       getAllBooks()
@@ -36,6 +36,19 @@ import BookModal from '@/Components/BookModal/BookModal'
           console.error('Error fetching books:', error);
         });
     }, []);
+    const handleDeleteBook = (bookId: string) => {
+      // Call deleteGenre function with the genreId
+      deleteBook({id: bookId})
+        .then(() => {
+          // Handle deletion success
+          console.log(`Book with ID ${bookId} deleted successfully.`);
+          window.location.reload();
+        })
+        .catch((error) => {
+          // Handle deletion error
+          console.error(`Error deleting book with ID ${bookId}:`, error);
+        });
+    };
 
     interface DataType {
       key: string;
@@ -86,8 +99,11 @@ import BookModal from '@/Components/BookModal/BookModal'
         render: (_, record) => {
           return (
             <Space size="middle">
-              <a style={{ color: 'green' }}><EditOutlined /></a>
-              <a style={{ color: 'red' }}><DeleteOutlined /></a>
+              <a style={{ color: 'red' }}
+              onClick={() => {
+                handleDeleteBook(record.key); // Pass the book ID to the handleDeleteGenre function
+              }} 
+              ><DeleteOutlined /></a>
             </Space>
           )
         },

@@ -56,10 +56,9 @@
     min-height: 100%;
 }
 .mainHeader {
-    display: flex;
-    width: 80vw;
+    display: block;
+    width: 100%;
     justify-content: center;
-    transform: translateX(5vw);
     
 }
 .dashboardContent {

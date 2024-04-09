@@ -23,7 +23,7 @@ const TransactionModal = () => {
   return (
     <main className="main">
       <Button type="primary" onClick={showModal}>
-        Open Modal
+        Create Transaction
       </Button>
       <Modal
         title="Add Transaction"

@@ -91,7 +91,7 @@ const Dashboard: React.FC = () => {
         <Space size="middle">
           <a style={{ color: 'red' }}
           onClick={() => {
-            handleDeleteLibrarian(record.key); // Pass the genre ID to the handleDeleteGenre function
+            handleDeleteLibrarian(record.key); // Pass the librarian ID to the handleDeleteGenre function
           }} 
           ><DeleteOutlined /></a>
         </Space>

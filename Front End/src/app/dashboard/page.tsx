@@ -96,16 +96,15 @@ const Dashboard: React.FC = () => {
       <Header className={styles.header}>
         <div className={styles.headingContainer}>
           <div className={styles.logoContainer}>
-            <Image className={styles.logo} src={logo} alt=''/>
             <h1 className={styles.heading}>eLibrary</h1>
           </div>
         </div>
       </Header>
       <Content className={styles.content}>
-        <h1 className={styles.mainHeader}>Dashboard</h1>
         <div className={styles.mainContainer}>
           <SideMenu current=''/>
           <div className={styles.dashboardContent}>
+          <h1 className={styles.mainHeader}>Dashboard</h1>
             <div className={styles.tableSection}>
               <Image width={100} style={{marginBottom:'20px', border:'green 1px dashed', padding:'20px'}} src={logo} alt='logo'/>
               <h1>Welcome to eLibrary Dashboard! <br />This is where all admin functionalities are performed <br />The menu located on the left side of the screen contains <br />all the necessary admin controls for your library <br /><br />Reach out to any of the contact details provided below for any support enquiries. <br /><br /><span ><h1>Cell no: 0649095192 <br />Email: jacques.blaauw@boxfusion.io</h1></span></h1>
