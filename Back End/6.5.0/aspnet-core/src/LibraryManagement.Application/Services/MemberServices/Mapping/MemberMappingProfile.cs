@@ -25,6 +25,9 @@ namespace LibraryManagement.Services.MemberServices.Mapping
                 .ForMember(x => x.Password, m => m.MapFrom(x => x.Password))
                 .ForMember(x => x.Id, m => m.Ignore());
 
+            CreateMap<User, MemberDto>()
+                .ForMember(x => x.Username, m => m.MapFrom(x => x.UserName));
+
             CreateMap<MemberDto, Person>()
                 .ForMember(x => x.FirstName, m => m.MapFrom(x => x.FirstName))
                 .ForMember(x => x.LastName, m => m.MapFrom(x => x.LastName))

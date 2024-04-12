@@ -17,6 +17,16 @@ export function bookReducer(state: IBookStateContext, action: ReduxActions.Actio
                 ...state,
                 ...payload,
             }
+        case BookActions.GET_TOP_TWELVE:
+            return {
+                ...state,
+                ...payload,
+            }
+        case BookActions.SEARCH_BY_TITLE:
+            return {
+                ...state,
+                ...payload,
+            }
         default:
             return state;
     }

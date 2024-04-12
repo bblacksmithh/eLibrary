@@ -10,12 +10,12 @@ import ExploreIcon from '@mui/icons-material/Explore';
 import { ExploreNavbar } from '@/Components/ExploreNavbar/ExploreNavbar';
 import BookTile from '@/Components/BookTile/BookTile';
 import { Showcase } from '@/Components/Showcase/Showcase';
-import { BookActionContext, IBookResponse } from '@/Providers/ManageBooks/context';
+import { BookActionContext, ITrendingResponse } from '@/Providers/ManageBooks/context';
 
 const Explore: React.FC = () => {
   const [current, setCurrent] = useState('trending');
-  const [allBooks, setAllBooks] = useState<IBookResponse>();
-  const {getAllBooks} = useContext(BookActionContext);
+  const [allBooks, setAllBooks] = useState<ITrendingResponse>();
+  const {getTrending} = useContext(BookActionContext);
 
 
   const items: MenuProps['items'] = [
@@ -37,18 +37,9 @@ const Explore: React.FC = () => {
   };
 
   useEffect(() => {
-    getAllBooks()
+    getTrending()
     .then((response) => {
       setAllBooks(response);
-      if (allBooks.result.items) {
-          setAllBooks(() => {
-            var newBooks: any = [{}];
-            for (let i = allBooks.result.items.length - 1; i >= 0; i--) {
-              newBooks = [...newBooks, allBooks.result.items[i]];
-            }
-            return newBooks;
-          })
-      }
     })
   }, [])
   console.log('allBooks',allBooks)
@@ -70,13 +61,16 @@ const Explore: React.FC = () => {
       <Content className={styles.content}>
         <h1 className={styles.contentheading}>Trending</h1>
         <div className={styles.exploreContent}>
-        {allBooks?.result.items.map((book)=> (
+        {allBooks?.result.map((book)=> (
           <BookTile 
             bookTitle={book.title}
             bookAuthor={book.author}
             genres={[book.genreIds]}
             isbn={book.isbn}
-            key={book.id}/>
+            key={book.id}
+            rating={book.rating}
+            description={book.description}/>
+            
         ))}
         </div>
       </Content>

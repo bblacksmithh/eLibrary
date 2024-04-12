@@ -3,6 +3,7 @@ import { Button, DatePicker, Form, Input, InputNumber, Modal, Select } from "ant
 import { useStyles } from "./Styles/Style";
 import { GenreActionContext, IGenreResponse } from "@/Providers/ManageGenres/context";
 import { BookActionContext, IBookCreate } from "@/Providers/ManageBooks/context";
+import TextArea from "antd/es/input/TextArea";
 
 const BookModal = () => {
   const [form] = Form.useForm();
@@ -53,7 +54,14 @@ const BookModal = () => {
   };
 
   const onFinish = (values: any) => {
-    const input: IBookCreate = { title: values.title, author: values.author, isbn: values.isbn, genreIds: [values.genre] }
+    const input: IBookCreate = { title: values.title, 
+                                author: values.author, 
+                                isbn: values.isbn, 
+                                genreIds: [values.genre], 
+                                condition: values.condition, 
+                                rating: values.rating, 
+                                description: values.description 
+                              }
     console.log('create', input);
     createBook(input).then((response) => {
       handleOk();
@@ -87,6 +95,11 @@ const BookModal = () => {
           <Form.Item label="Author" name='author'>
             <Input placeholder="Author"></Input>
           </Form.Item>
+          <Form.Item
+          label='Description'
+          name='description'>
+            <TextArea></TextArea>
+          </Form.Item>
           <Form.Item label="ISBN" name='isbn'>
             <Input placeholder="ISBN"></Input>
           </Form.Item>
@@ -108,6 +121,10 @@ const BookModal = () => {
               <Select.Option key='Fair' value='Fair'>Fair</Select.Option>
               <Select.Option key='Poor' value='Poor'>Poor</Select.Option>
             </Select>
+          </Form.Item>
+          <Form.Item label='Rating'
+          name='rating'>
+            <InputNumber></InputNumber>
           </Form.Item>
           <Button htmlType="submit" style={{ margin: 'auto', display: 'block' }}>
             Submit

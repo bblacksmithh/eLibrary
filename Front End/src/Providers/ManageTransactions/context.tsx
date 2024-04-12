@@ -2,15 +2,21 @@ import { createContext } from 'react';
 
 export interface ITransactionResponse {
     id: string;
-    creationTime: string;
-    creatorUserId: number;
-    lastModificationTime: string;
-    lastModifierUserId: number;
+    librarianName: string;
+    memberUsername: string;
+    bookNames: string[];
+    borrowDate: Date;
+    returnDate: Date;
     cost: number;
-    librarianId: string;
+}
+
+export interface ITransactionCreate {
+    id: string;
+    cost: number;
+    userId: number;
     memberId: string;
-    returnDate: string;
-    bookIds: string[];
+    returnDate: Date;
+    bookIds: string[]
 }
 
 export interface IAllTransactionResponse {
@@ -26,11 +32,13 @@ export interface ITransactionStateContext {
     isInProgress?: any;
     error?: any;
     deleteTransactionInput?: IDeleteTransaction;
+    createTransactionInput?: ITransactionCreate;
 }
 
 export interface ITransactionActionContext {
     getAllTransactions: () => Promise<IAllTransactionResponse>
     deleteTransaction: (deleteTransaction: IDeleteTransaction) => Promise<IDeleteTransaction>
+    createTransaction: (createTransaction: ITransactionCreate) => Promise<ITransactionCreate>
 }
 
 export const TRANSACTION_CONTEXT_INITIAL_STATE: ITransactionStateContext = {};

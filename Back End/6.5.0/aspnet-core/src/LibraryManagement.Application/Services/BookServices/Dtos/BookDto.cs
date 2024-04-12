@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
 using LibraryManagement.Domains;
+using LibraryManagement.Services.GenreServices.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,11 @@ namespace LibraryManagement.Services.BookServices.Dtos
     {
         public string Title { get; set; }
         public string Author { get; set; }
+        public string Description { get; set; }
         public string ISBN { get; set; }
         public string Condition { get; set; }
-        public List<Guid> GenreIds { get; set; }
+        public double Rating { get; set; }
+        public List<Guid>? GenreIds { get; set; }
+
     }
 }

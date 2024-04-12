@@ -29,6 +29,10 @@ export interface IDeleteGenre {
     id: string;
 }
 
+export interface IFindGenresOfBook {
+    id: string;
+}
+
 export interface IGenreStateContext {
     allGenres?: IGenreResponse;
     isInProgress?: any;
@@ -41,6 +45,7 @@ export interface IGenreActionContext {
     getAllGenres: () => Promise<IGenreResponse>;
     createGenre: (createGenre: IGenreCreate) => Promise<IGenreCreate>;
     deleteGenre: (deleteGenre: IDeleteGenre) => Promise<IDeleteGenre>;
+    getGenresOfBook: (getGenresOfBook: IFindGenresOfBook) => Promise<IGenreResponse>
 }
 
 export const GENRE_CONTEXT_INITIAL_STATE: IGenreStateContext = {};

@@ -3,7 +3,7 @@
 import React, { FC, PropsWithChildren, useContext, useReducer, useState } from "react";
 import axios from "axios";
 import { genreReducer } from "./reducer";
-import { GENRE_CONTEXT_INITIAL_STATE, GenreActionContext, GenreStateContext, IDeleteGenre, IGenreCreate, IGenreResponse } from "./context";
+import { GENRE_CONTEXT_INITIAL_STATE, GenreActionContext, GenreStateContext, IDeleteGenre, IFindGenresOfBook, IGenreCreate, IGenreResponse } from "./context";
 import { createGenreAction, deleteGenreAction, getAllGenresAction } from "./actions";
 
 const GenreProvider: FC<PropsWithChildren<any>> = ({ children }) => {
@@ -68,6 +68,24 @@ const GenreProvider: FC<PropsWithChildren<any>> = ({ children }) => {
                     reject(e.message);
                 })
         })
+        const getGenresOfBook = (input: IFindGenresOfBook): Promise<IGenreResponse> =>
+            new Promise((resolve, reject) => {
+                {
+                    setIsInProgress(true);
+                    axios.get(`https://localhost:44311/api/services/app/GenreOnBook/GetGenresOfBook?id=${input.id}`)
+                        .then((response) => {
+                            dispatch(response as any);
+                            setErrorLogin('');
+                            setIsInProgress(false);
+                            resolve(response.data);
+                        })
+                        .catch(e => {
+                            setIsInProgress(false);
+                            setErrorLogin(e.message);
+                            reject(e.message)
+                        });
+                }
+            });
 
     return (
         <GenreStateContext.Provider
@@ -81,7 +99,8 @@ const GenreProvider: FC<PropsWithChildren<any>> = ({ children }) => {
                 value={{
                     getAllGenres,
                     createGenre,
-                    deleteGenre
+                    deleteGenre,
+                    getGenresOfBook
                 }}
             >
                 {children}

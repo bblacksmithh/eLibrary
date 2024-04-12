@@ -22,9 +22,9 @@ const Dashboard: React.FC = () => {
         setAllMembers(response);
         console.log(response);
 
-        if (response && response.result && response.result.items) {
+        if (response && response.result) {
           setAllMemberData(
-            response.result.items.map((member) => ({
+            response.result.map((member) => ({
               key: member.id,
               name: member.firstName,
               surname: member.lastName,

@@ -16,7 +16,7 @@ const MemberProvider: FC<PropsWithChildren<any>> = ({ children }) => {
         new Promise((resolve, reject) => {
             {
                 setIsInProgress(true);
-                axios.get('https://localhost:44311/api/services/app/Member/GetAll')
+                axios.get('https://localhost:44311/api/services/app/Member/GetAllMember')
                     .then((response) => {
                         dispatch(response as any);
                         setErrorLogin('');

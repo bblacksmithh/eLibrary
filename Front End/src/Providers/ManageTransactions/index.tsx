@@ -3,8 +3,8 @@
 import React, { FC, PropsWithChildren, useContext, useReducer, useState } from "react";
 import axios from "axios";
 import { memberReducer } from "./reducer";
-import { TRANSACTION_CONTEXT_INITIAL_STATE, TransactionActionContext, TransactionStateContext, IAllTransactionResponse, IDeleteTransaction } from "./context";
-import { deleteTransactionAction, getAllTransactionsAction } from "./actions";
+import { TRANSACTION_CONTEXT_INITIAL_STATE, TransactionActionContext, TransactionStateContext, IAllTransactionResponse, IDeleteTransaction, ITransactionCreate } from "./context";
+import { createTransactionAction, deleteTransactionAction, getAllTransactionsAction } from "./actions";
 
 const TransactionProvider: FC<PropsWithChildren<any>> = ({ children }) => {
     const [state, dispatch] = useReducer(memberReducer, TRANSACTION_CONTEXT_INITIAL_STATE);
@@ -50,6 +50,26 @@ const TransactionProvider: FC<PropsWithChildren<any>> = ({ children }) => {
                     })
             })
 
+            const createTransaction = (userInput: ITransactionCreate): Promise<ITransactionCreate> =>
+                new Promise((resolve, reject) => {
+                    dispatch(createTransactionAction(userInput));
+                    console.log('userinput', userInput)
+                    setIsInProgress(true);
+                    axios.post('https://localhost:44311/api/services/app/Book/CreateTransaction', userInput)
+                        .then((response) => {
+                            console.log('resp', response);
+        
+                            setErrorCreate('');
+                            setIsInProgress(false);
+                            resolve(response.data);
+                        })
+                        .catch(e => {
+                            console.log(e.message);
+                            setErrorCreate(e.message);
+                            reject(e.message);
+                        })
+                })
+
     return (
         <TransactionStateContext.Provider
             value={{
@@ -61,7 +81,8 @@ const TransactionProvider: FC<PropsWithChildren<any>> = ({ children }) => {
             <TransactionActionContext.Provider
                 value={{ 
                     getAllTransactions,
-                    deleteTransaction
+                    deleteTransaction,
+                    createTransaction
                  }}
             >
                 {children}

@@ -3,6 +3,7 @@ using Abp.Domain.Repositories;
 using LibraryManagement.Domains;
 using LibraryManagement.Services.BookServices.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,6 +55,24 @@ namespace LibraryManagement.Services.BookServices
             return ObjectMapper.Map<List<BookDto>>(books);
         }
 
+        [HttpGet]
+        public async Task<List<BookDto>> GetTopTwelveBooksAsync()
+        {
+            var books = _bookRepository.GetAll();
+            var topBooks = books.OrderByDescending(x => x.Rating).Take(12).ToList();
+
+            return ObjectMapper.Map<List<BookDto>>(topBooks);
+        }
+
+        [HttpGet]
+        public async Task<List<BookDto>> GetTrendingBooksAsync()
+        {
+            var books = _bookRepository.GetAll();
+            var topBooks = books.OrderByDescending(x => x.Rating).Take(20).ToList();
+
+            return ObjectMapper.Map<List<BookDto>>(topBooks);
+        }
+
         [HttpDelete]
         public async Task<BookDto> DeleteBookAsync(Guid id)
         {   
@@ -62,6 +81,41 @@ namespace LibraryManagement.Services.BookServices
             await _genreOnBookRepository.DeleteAsync(x => x.Book.Id == id);
             await Repository.DeleteAsync(x => x.Id == id);
             return response;
+        }
+
+        [HttpGet]
+        public async Task<BookDto> GetBookAsync(Guid id)
+        {
+            var book = _bookRepository.GetAllIncluding().FirstOrDefault(x => x.Id==id);
+            var genres = _genreOnBookRepository.GetAllIncluding(x => x.Genre).Where(x=>x.Book.Id == id);
+            var response = ObjectMapper.Map<BookDto>(book);
+            return response;
+        }
+
+        [HttpGet]
+        public async Task<List<BookDto>> SearchBooksAsync(string searchTerm)
+        {
+            // Assuming you want to search by book title
+            var books = await _bookRepository.GetAllListAsync(x => x.Title.ToUpper().Contains(searchTerm.ToUpper()));
+
+            return ObjectMapper.Map<List<BookDto>>(books);
+        }
+
+        [HttpGet]
+        public async Task<List<BookOutputDto>> GetAllBooksAsync()
+        {
+            var books = await _bookRepository.GetAllListAsync();
+             List<BookOutputDto> bookList = new List<BookOutputDto>();
+            foreach (var book in books)
+            {
+                var bookGenre = _genreOnBookRepository.GetAllIncluding(x => x.Genre, y => y.Book).Where(x => x.Book.Id == book.Id).Select(x=>x.Genre).ToList();
+                var bookoutput = new BookOutputDto();
+                bookoutput.book = book;
+                bookoutput.GenreNames = bookGenre.Select(a=>a.GenreName).ToList();
+
+                bookList.Add(bookoutput);
+            }
+            return bookList;
         }
     }
 }

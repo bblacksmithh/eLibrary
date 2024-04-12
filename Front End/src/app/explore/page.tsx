@@ -42,7 +42,6 @@ const Explore: React.FC = () => {
       setAllBooks(response);
     })
   }, [])
-  console.log('allBooks',allBooks)
 
   return (
   <main className={styles.main}>
@@ -59,15 +58,20 @@ const Explore: React.FC = () => {
         </div>
       </Header>
       <Content className={styles.content}>
+        <div className={styles.showcase}>
+          <Showcase/>
+        </div>
         <h1 className={styles.contentheading}>Explore</h1>
         <div className={styles.exploreContent}>
-        {allBooks?.result.items.map((book)=> (
+        {allBooks?.result.map((book)=> (
           <BookTile 
-            bookTitle={book.title}
-            bookAuthor={book.author}
-            genres={[book.genreIds]}
-            isbn={book.isbn}
-            key={book.id}/>
+            bookTitle={book.book.title}
+            bookAuthor={book.book.author}
+            description={book.book.description}
+            genres={book.genreNames}
+            isbn={book.book.isbn}
+            key={book.book.id}
+            rating={book.book.rating}/>
         ))}
         </div>
       </Content>

@@ -15,6 +15,11 @@ export function genreReducer(state: IGenreStateContext, action: ReduxActions.Act
                 ...state,
                 ...payload,
             }
+        case GenreActions.GET_GENRES_OF_BOOK:
+            return {
+                ...state,
+                ...payload,
+            }
         default:
             return state;
     }

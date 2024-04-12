@@ -10,6 +10,16 @@ export function memberReducer(state: ITransactionStateContext, action: ReduxActi
                 ...state,
                 ...payload,
             };
+        case TransactionActions.DELETE_TRANSACTION:
+            return {
+                ...state,
+                ...payload,
+            }
+        case TransactionActions.CREATE_TRANSACTION:
+            return {
+                ...state,
+                ...payload,
+            }
         default:
             return state;
     }

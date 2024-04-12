@@ -25,12 +25,6 @@ const Landing: React.FC = () => {
                 </Button>
               </Link>
               <Divider className={styles.divider}/>
-              <Link href='register'>
-                <Button className={styles.button}>
-                  Create Account
-                </Button>
-              </Link>
-              <Divider className={styles.divider}/>
               <Link href='explore'>
                 <Button className={styles.button}>
                   Explore

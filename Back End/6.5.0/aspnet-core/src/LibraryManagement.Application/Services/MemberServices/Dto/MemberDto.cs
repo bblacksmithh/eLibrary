@@ -40,6 +40,8 @@ namespace LibraryManagement.Services.MemberServices.Dto
         /// 
         /// </summary>
         public decimal Credits { get; set; }
+        
+        
 
     }
 }

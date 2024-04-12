@@ -4,14 +4,16 @@ using LibraryManagement.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LibraryManagement.Migrations
 {
     [DbContext(typeof(LibraryManagementDbContext))]
-    partial class LibraryManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240410094415_100420241144")]
+    partial class _100420241144
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1731,6 +1733,18 @@ namespace LibraryManagement.Migrations
 
                     b.Property<decimal>("Cost")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
 
                     b.Property<Guid?>("LibrarianId")
                         .HasColumnType("uniqueidentifier");

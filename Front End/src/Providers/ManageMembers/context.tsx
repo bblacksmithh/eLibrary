@@ -1,8 +1,7 @@
 import { createContext } from 'react';
 
 export interface IMemberResponse {
-    result: {
-        items: [
+    result: [
             {
                 id: string;
                 creationTime: string;
@@ -17,10 +16,9 @@ export interface IMemberResponse {
                 password: string;
                 registerDate: string;
                 credits: number;
-            }
+            } 
         ]
-        totalCount: number
-    }
+        
 }
 
 export interface IMemberCreate {

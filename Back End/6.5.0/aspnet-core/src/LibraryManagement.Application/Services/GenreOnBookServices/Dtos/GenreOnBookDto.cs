@@ -14,7 +14,5 @@ namespace LibraryManagement.Services.GenreOnBookServices.Dtos
     {
             public Guid? GenreId { get; set; }
             public Guid? BookId { get; set; }
- 
-
     }
 }

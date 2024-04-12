@@ -9,24 +9,29 @@
   import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
   import { BookActionContext, IBookResponse } from '@/Providers/ManageBooks/context'
 import BookModal from '@/Components/BookModal/BookModal'
+import { GenreActionContext, IFindGenresOfBook } from '@/Providers/ManageGenres/context'
   const Dashboard: React.FC = () => {
     const { Header, Footer, Content } = Layout;
     const [allBooks, setAllBooks] = useState<IBookResponse>();
     const [allBookData, setAllBookData] = useState<any>([]);
+    const [allTrending, setAllTrending] = useState<any>([]);
+    const [bookGenres, setBookGenres] = useState<any>([]);
     const {getAllBooks, deleteBook} = useContext(BookActionContext);
+    const {getGenresOfBook} = useContext(GenreActionContext);
 
     useEffect(() => {
       getAllBooks()
         .then((response) => {
           setAllBooks(response);
-          if (response && response.result && response.result.items) {
+          if (response && response.result) {
             setAllBookData(
-              response.result.items.map((book) => ({
-                key: book.id,
-                title: book.title,
-                author: book.author,
-                condition: book.condition,
-                genres: book.genreIds
+              response.result.map((book) => ({
+                key: book.book.id,
+                title: book.book.title,
+                author: book.book.author,
+                condition: book.book.condition,
+                rating: book.book.rating,
+                genres: book.genreNames
               }))
             );
           }
@@ -35,6 +40,7 @@ import BookModal from '@/Components/BookModal/BookModal'
           // Handle error
           console.error('Error fetching books:', error);
         });
+        
     }, []);
     const handleDeleteBook = (bookId: string) => {
       // Call deleteGenre function with the genreId
@@ -50,12 +56,25 @@ import BookModal from '@/Components/BookModal/BookModal'
         });
     };
 
+    const handleFindGenresOfBook = (bookId: string) => {
+      getGenresOfBook({id: bookId})
+        .then((response)=> {
+          if (response && response.result && response.result.items) {
+            setBookGenres(response?.result.items.map((genre => ({
+              key: genre.id,
+              genre: genre.genreName
+            }))));
+          }
+        })
+    }
+
     interface DataType {
       key: string;
       title: string;
       author: string;
       isbn: string;
       condition: string,
+      rating: number,
       genres: string[]
     }
 
@@ -77,18 +96,22 @@ import BookModal from '@/Components/BookModal/BookModal'
         key: 'condition',
       },
       {
+        title: 'Rating',
+        dataIndex: 'rating',
+        key: 'rating'
+      },
+      {
         title: 'Genres',
         key: 'genres',
         dataIndex: 'genres',
-        render: (_, { genres }) => (
+        render: (_, record) => (
           <>
-            {genres?.map((genre) => {
-              let color = 'green';
-              return (
-                <Tag color={color} key={genre}>
-                  {genre.toUpperCase()}
-                </Tag>
-              );
+            {record.genres.map((genre:any) => {
+
+              console.log("tag,",genre)
+              return <Tag>
+                {genre}
+              </Tag>
             })}
           </>
         ),
@@ -109,7 +132,7 @@ import BookModal from '@/Components/BookModal/BookModal'
         },
       },
     ];
-
+    console.log('bookdata',allBookData)
     return (
       <main className={styles.main}>
         <Layout className={styles.layout}>

@@ -29,12 +29,16 @@ export const useStyles = createStyles(({css,cx}) => {
             width: 350px;
             height: 500px;
             overflow-y: scroll;
+            padding: 10px;
             & h1 {
                 color: white;
+                text-align: start;
+                padding: 10px;
             }
             & p {
                 width: 250px;
                 margin: 10px;
+                margin-left: 15px;
                 color: green;
             }
         }
@@ -51,10 +55,12 @@ export const useStyles = createStyles(({css,cx}) => {
             margin: 10px;
             & h1 {
                 color: orange;
-                font-size: 22px;
+                font-size: 15px;
+                margin-top:5px;
             }
             & p {
                 color: white;
+                margin-left: 5px;
             }
         }
         .${imageContainer} {

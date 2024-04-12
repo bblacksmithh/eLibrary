@@ -11,25 +11,24 @@ import { IAllTransactionResponse, TransactionActionContext } from '@/Providers/M
 import TransactionModal from '@/Components/TransactionModal/TransactionModal'
 const Dashboard: React.FC = () => {
   const {Header, Footer, Content} = Layout;
-  const [allTransactions, setAllTransactions] = useState<IAllTransactionResponse>();
   const [allTransactionData, setAllTransactionData] = useState<any>([]);
   const { getAllTransactions } = useContext(TransactionActionContext);
 
   useEffect(() => {
     getAllTransactions()
       .then((response) => {
-        setAllTransactions(response);
         console.log(response);
 
         if (response) {
           setAllTransactionData(
             response.result.map((transaction) => ({
               key: transaction.id,
-              member: transaction.memberId,
-              book: transaction.bookIds || [],
-              date: transaction.creationTime,
+              librarian: transaction.librarianName,
+              member: transaction.memberUsername,
+              book: transaction.bookNames || [],
+              date: transaction.borrowDate,
               returnDate: transaction.returnDate,
-              status: 'Not Returned',
+              cost: transaction.cost,
             }))
           );
         }
@@ -51,10 +50,16 @@ const Dashboard: React.FC = () => {
   
   const columns: TableProps<DataType>['columns'] = [
     {
+      title: 'Librarian',
+      dataIndex: 'librarian',
+      key: 'librarian',
+      render: (text) => <p>{text}</p>
+    },
+    {
       title: 'Member',
       dataIndex: 'member',
       key: 'member',
-      render: (text) => <a>{text}</a>
+      render: (text) => <p>{text}</p>
     },
     {
       title: 'Books',
@@ -74,10 +79,16 @@ const Dashboard: React.FC = () => {
       ),
     },
     {
+      title: 'Cost',
+      dataIndex: 'cost',
+      key: 'cost',
+      render: ((text) => <p>R {text}</p>)
+    },
+    {
       title: 'Date',
       dataIndex: 'date',
       key: 'date',
-      render: ((text) => <a>{text}</a>)
+      render: ((text) => <p>{text}</p>)
     },
     {
       title: 'Return Date',

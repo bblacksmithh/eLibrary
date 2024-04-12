@@ -10,7 +10,7 @@ export const useStyles = createStyles(({css,cx}) => {
         height: 80vh;
         display: flex;
         flex-direction: column;
-        padding: 20px;
+        padding-top: 20px;
         justify-content:start;
         border-right: 1px green solid;
         .${menuStyle} {

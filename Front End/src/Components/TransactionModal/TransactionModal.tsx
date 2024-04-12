@@ -1,10 +1,45 @@
-import React, { useState } from "react";
-import { Button, DatePicker, Form, InputNumber, Modal, Select } from "antd";
+import React, { useContext, useEffect, useState } from "react";
+import { Button, DatePicker, Form, Input, InputNumber, Modal, Select } from "antd";
 import { useStyles } from "./Styles/Style";
+import { MemberActionContext } from "@/Providers/ManageMembers/context";
 
 const TransactionModal = () => {
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [allMemberData, setAllMemberData] = useState<any>([]);
+  const [memberOptionData, setMemberOptionData] = useState([]);
+  const { getAllMembers } = useContext(MemberActionContext);
+
+  useEffect(() => {
+    getAllMembers()
+      .then((response) => {
+        console.log(response);
+
+        if (response && response.result) {
+          setAllMemberData(
+            response.result.map((member) => ({
+              key: member.id,
+              name: member.firstName,
+              surname: member.lastName,
+              email: member.email,
+              username: member.username,
+              credits: member.credits,
+            }))
+          );
+
+          console.log('resp', response.result);
+          const memberOptions = allMemberData.map((member: any) => ({
+            value: member.Id,
+            label: member.username
+          }));
+          setMemberOptionData(memberOptions);
+        }
+      })
+      .catch((error) => {
+        // Handle error
+        console.error('Error fetching genres:', error);
+      });
+  }, []);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -20,6 +55,8 @@ const TransactionModal = () => {
 
   const { styles, cx } = useStyles();
 
+
+  console.log('member',allMemberData)
   return (
     <main className="main">
       <Button type="primary" onClick={showModal}>
@@ -39,13 +76,14 @@ const TransactionModal = () => {
         >
           <Form.Item label="Member">
             <Select
-                fieldNames={{ label: "name", value: "id" }}
                 showSearch
-                options={[
-                    { label: 'Member1', value: 'member1' },
-                    { label: 'Member2', value: 'member2' }
-                ]}
-            />
+            >
+              {allMemberData.map((member: any) => (
+                <Select.Option key={member.key} value={member.username}>
+                  {member.username}
+                </Select.Option>
+              ))}
+            </Select>
           </Form.Item>
         <Form.Item label="Book">
             <Select
@@ -62,18 +100,13 @@ const TransactionModal = () => {
             <DatePicker></DatePicker>
           </Form.Item>
           <Form.Item label="Duration">
-            <InputNumber min={0}></InputNumber>
-            <text> (Weeks)</text>
+            <InputNumber min={0} placeholder="Weeks"></InputNumber>
           </Form.Item>
-          <Form.Item label="Librarian">
-            <Select
-                fieldNames={{ label: "name", value: "id" }}
-                showSearch
-                options={[
-                    { label: 'Librarian1', value: 'Librarian1' },
-                    { label: 'Librarian2', value: 'Librarian2' }]}
-            />
-            </Form.Item>
+          <Form.Item
+            label='Cost'
+            name='cost'>
+            <Input disabled={true}></Input>
+          </Form.Item>
         </Form>
       </Modal>
     </main>

@@ -11,9 +11,10 @@ namespace LibraryManagement.Domains
     {
         public string Title { get; set; }
         public string Author { get; set; }
+        public string Description { get; set; }
         public string ISBN { get; set; }
         public string Condition { get; set; }
-        
-
+        public double? Rating { get; set; }
+       
     }
 }
