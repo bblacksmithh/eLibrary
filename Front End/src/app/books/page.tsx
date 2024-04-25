@@ -59,7 +59,7 @@ import { GenreActionContext, IFindGenresOfBook } from '@/Providers/ManageGenres/
     const handleFindGenresOfBook = (bookId: string) => {
       getGenresOfBook({id: bookId})
         .then((response)=> {
-          if (response && response.result && response.result.items) {
+          if (response?.result?.items) {
             setBookGenres(response?.result.items.map((genre => ({
               key: genre.id,
               genre: genre.genreName

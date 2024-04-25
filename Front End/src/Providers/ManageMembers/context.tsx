@@ -41,18 +41,25 @@ export interface IMemberDelete {
     id: string;
 }
 
+export interface IAddCredits {
+    memberId: string;
+    credits: number;
+}
+
 export interface IMemberStateContext {
     allMembers?: IMemberResponse;
     isInProgress?: any;
     error?: any;
     memberInput?: IMemberCreate;
     memberDeleteInput?: IMemberDelete;
+    addCreditsInput?: IAddCredits;
 }
 
 export interface IMemberActionContext {
     getAllMembers: () => Promise<IMemberResponse>
     createMember: (createMember: IMemberCreate) => Promise<IMemberCreate>
     deleteMember: (deleteMember: IMemberDelete) => Promise<IMemberDelete>
+    addCredits: (addCredits: IAddCredits) => Promise<IAddCredits>
 }
 
 export const MEMBER_CONTEXT_INITIAL_STATE: IMemberStateContext = {};

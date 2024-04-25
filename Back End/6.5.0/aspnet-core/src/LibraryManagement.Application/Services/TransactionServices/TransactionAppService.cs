@@ -32,14 +32,17 @@ namespace LibraryManagement.Services.TransactionServices
             _librarianRepository = librarianRepository;
         }
 
-        public async Task<TransactionDto> CreateTransactionAsync(TransactionDto input)
+        public async Task<Transaction> CreateTransactionAsync(TransactionDto input)
         {
-            var transaction = ObjectMapper.Map<Transaction>(input);
+            Transaction transaction = new Transaction();
             transaction.Member = await _memberRepository.GetAllIncluding(x => x.User).Where(x => x.Id == input.MemberId).FirstOrDefaultAsync();
+            transaction.Cost = input.Cost;
             transaction.Member.Credits -= transaction.Cost;
             if (transaction.Member.Credits < 0) throw new UserFriendlyException("You don't have enough credit");
             await _memberRepository.UpdateAsync(transaction.Member);
             transaction.Librarian = await _librarianRepository.GetAllIncluding(x=>x.User).Where(x=>x.User.Id == input.UserId).FirstOrDefaultAsync();
+            transaction.ReturnDate = input.ReturnDate;
+            transaction.Book = null;
             transaction = await _transactionRepository.InsertAsync(transaction);
             CurrentUnitOfWork.SaveChanges();
             if (input.BookIds.Any())
@@ -56,8 +59,7 @@ namespace LibraryManagement.Services.TransactionServices
                 }
                 CurrentUnitOfWork.SaveChanges();
             }
-
-            return ObjectMapper.Map<TransactionDto>(transaction);
+            return transaction;
         }
 
         public async Task<List<TransactionOutputDto>> GetAllTransactionAsync()

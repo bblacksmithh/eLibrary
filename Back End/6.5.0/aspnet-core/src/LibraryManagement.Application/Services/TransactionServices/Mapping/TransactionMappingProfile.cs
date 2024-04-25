@@ -16,11 +16,15 @@ namespace LibraryManagement.Services.TransactionServices.Mapping
             ///
             ///
             ///
-            //CreateMap<TransactionDto, Transaction>()
-            //    .ForMember(x => x.Member, m => m.Ignore())
-            //    .ForMember(x => x.Librarian, m => m.Ignore())
-            //    .ForMember(x => x.Id, m => m.Ignore())
-            //    .ForMember(x => x.Book, m => m.Ignore());
+            CreateMap<TransactionDto, Transaction>()
+                .ForMember(x => x.Member, m => m.Ignore())
+                .ForMember(x => x.Librarian, m => m.Ignore())
+                .ForMember(x => x.Id, m => m.Ignore())
+                .ForMember(x => x.Book, m => m.Ignore())
+                .ForMember(x => x.ReturnDate, m => m.Ignore())
+                .ForMember(x => x.Cost, m => m.Ignore())
+                .ForMember(x => x.BorrowDate, m => m.Ignore())
+                ;
         }
     }
 }

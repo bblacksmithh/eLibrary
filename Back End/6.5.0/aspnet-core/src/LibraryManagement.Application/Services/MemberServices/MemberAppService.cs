@@ -47,11 +47,7 @@ namespace LibraryManagement.Services.MemberServices
             var member = await _memberRepository.GetAllIncluding(x => x.User).ToListAsync();
             return ObjectMapper.Map<List<MemberDto>>(member);
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
+
         private async Task<User> CreateUserAsync(MemberDto input)
         {
             var user = ObjectMapper.Map<User>(input);
@@ -61,10 +57,16 @@ namespace LibraryManagement.Services.MemberServices
             CurrentUnitOfWork.SaveChanges();
             return user;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="identityResult"></param>
+
+        public async Task<Member> AddCreditsAsync(AddCreditsDto input)
+        {
+            var member = _memberRepository.GetAll().Where(x => x.Id == input.MemberId).FirstOrDefault();
+            member.Credits += input.Credits;
+            await _memberRepository.UpdateAsync(member);
+
+            return member;
+        }
+
         protected virtual void CheckErrors(IdentityResult identityResult)
         {
             identityResult.CheckErrors(LocalizationManager);

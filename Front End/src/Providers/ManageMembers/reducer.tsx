@@ -20,6 +20,11 @@ export function memberReducer(state: IMemberStateContext, action: ReduxActions.A
                 ...state,
                 ...payload,
             }
+        case MemberActions.ADD_CREDITS:
+            return {
+                ...state,
+                ...payload,
+            }
         default:
             return state;
     }

@@ -55,7 +55,7 @@ const TransactionProvider: FC<PropsWithChildren<any>> = ({ children }) => {
                     dispatch(createTransactionAction(userInput));
                     console.log('userinput', userInput)
                     setIsInProgress(true);
-                    axios.post('https://localhost:44311/api/services/app/Book/CreateTransaction', userInput)
+                    axios.post('https://localhost:44311/api/services/app/Transaction/CreateTransaction', userInput)
                         .then((response) => {
                             console.log('resp', response);
         

@@ -11,7 +11,7 @@ export interface ITransactionResponse {
 }
 
 export interface ITransactionCreate {
-    id: string;
+    id?: string;
     cost: number;
     userId: number;
     memberId: string;

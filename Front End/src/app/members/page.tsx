@@ -9,6 +9,7 @@ import { Table } from 'antd'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { IMemberResponse, MemberActionContext } from '@/Providers/ManageMembers/context'
 import MemberModal from '@/Components/MemberModal/MemberModal'
+import AddCreditsModal from '@/Components/AddCredits/AddCreditsModal'
 
 const Dashboard: React.FC = () => {
   const { Header, Footer, Content } = Layout;
@@ -123,6 +124,7 @@ const Dashboard: React.FC = () => {
               <h1>Members</h1>
               <div className={styles.buttonSection}>
                 <MemberModal/>
+                <AddCreditsModal/>
               </div>
               <div className={styles.tableSection}>
                 <Table pagination={{
